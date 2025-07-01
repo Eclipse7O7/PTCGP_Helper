@@ -1,4 +1,5 @@
-// Attmpt 2
+// Attempt 2
+// Will change to typescript eventually but using js for now
 import { app, BrowserWindow } from  "electron";
 
 app.on("ready", () => {
@@ -8,7 +9,7 @@ app.on("ready", () => {
 
 
 /*
-// Atmpt 1
+// Attempt 1
 const {app, BrowswerWindow } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
