@@ -1,9 +1,15 @@
 // Attempt 2
 // Will change to typescript eventually but using js for now
 import { app, BrowserWindow } from  "electron";
+import path from "path";   
+
+type test = string;
+
+// dist-react is the output directory for the React app once it is built
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({});
+  mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
 });
 
 
