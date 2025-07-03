@@ -1,7 +1,8 @@
 // Attempt 2
 // Will change to typescript eventually but using js for now
-import { app, BrowserWindow } from  "electron";
-import path from "path";   
+import { app, BrowserWindow } from "electron";
+import path from "path";
+import { isDev } from "./util.js";
 
 type test = string;
 
@@ -9,7 +10,12 @@ type test = string;
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({});
-  mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
+  if (isDev()) {
+    mainWindow.loadURL("http://localhost:5017");
+    //mainWindow.webContents.openDevTools();
+  } else {
+    mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
+  }
 });
 
 
