@@ -3,19 +3,32 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import { isDev } from "./util.js";
+import { pollRescources } from "./rescourceManagerTest.js";
+import { getPreloadedPath } from "./pathresolver.js";
+import {  } from "./tcgTrackerTest.js";
 
-type test = string;
+//type test = string;
 
 // dist-react is the output directory for the React app once it is built
 
 app.on("ready", () => {
-  const mainWindow = new BrowserWindow({});
+  const mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      // Using a preload script as it is better for security reasons than enabling nodeIntegration
+      nodeIntegration: false,
+      preload: getPreloadedPath()
+    },
+  });
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5017");
     //mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
   }
+  console.log("App is ready");
+  pollRescources();
 });
 
 

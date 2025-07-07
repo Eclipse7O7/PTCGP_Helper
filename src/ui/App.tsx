@@ -4,11 +4,17 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  
 
+  // @ts-ignore
+  window.electron.getStaticData();
+
+  
   return (
     <>
       <div>
         Test for GitHub
+
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
