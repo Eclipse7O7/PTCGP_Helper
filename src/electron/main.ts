@@ -1,9 +1,9 @@
 // Attempt 2
 // Will change to typescript eventually but using js for now
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { isDev } from "./util.js";
-import { pollRescources } from "./rescourceManagerTest.js";
+import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
 import {  } from "./tcgTrackerTest.js";
 
@@ -28,7 +28,12 @@ app.on("ready", () => {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
   }
   console.log("App is ready");
-  pollRescources();
+
+  pollRescources(mainWindow);
+
+  ipcMain.handle("getStaticData", () => {
+    return getStaticData();
+  });
 });
 
 

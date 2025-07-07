@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 
@@ -7,7 +7,13 @@ function App() {
   
 
   // @ts-ignore
-  window.electron.getStaticData();
+  //window.electron.getStaticData();
+  useEffect(() => {
+    // @ts-ignore
+    window.electron.resource_update((stats: any) => {
+      console.log(stats);
+    });
+  }, []);
 
   
   return (

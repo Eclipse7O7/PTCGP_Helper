@@ -1,4 +1,4 @@
-import { getStaticData } from "./rescourceManagerTest";
+//import { getStaticData } from "./rescourceManagerTest";
 
 const electron = require("electron");
 
@@ -7,10 +7,19 @@ const electron = require("electron");
 //   under the name "electron" - stops the UI from having too much control
 
 electron.contextBridge.exposeInMainWorld("electron", {
-   // Doesn't like either of these, so commented out
+   // App doesn't like either of these, so commented out
    //getAppPath: () => electron.app.getAppPath(),
    //isDev: () => electron.app.isPackaged === false,
-   getStaticData: () => console.log("getStaticData called"),
+
+   // ".on" and ".send" is a UDP style manner of listening for events, fire-and-forget
+   resource_update: (callback: (resource_update: any) => void) => {
+      electron.ipcRenderer.on("resource_update", (event: any, stats: any) => {
+         callback(stats);
+      })
+   },
+   //getStaticData: () => console.log("getStaticData called"),
+   // ".invoke" and ".handle" is a request-response style of listening for events
+   getStaticData: () => electron.ipcRenderer.invoke("getStaticData"),
 
    // Add more functions to expose to the renderer process as needed?
    });
