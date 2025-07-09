@@ -6,10 +6,8 @@ function App() {
   const [count, setCount] = useState(0)
   
 
-  // @ts-ignore
-  //window.electron.getStaticData();
+  
   useEffect(() => {
-    // @ts-ignore
     window.electron.resource_update((stats: any) => {
       console.log(stats);
     });

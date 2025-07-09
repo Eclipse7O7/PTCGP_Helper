@@ -10,7 +10,9 @@
       // Defines where to put the generated JS
       "outDir": "../../dist-electron",
       // Ignore errors from dependencies
-      "skipLibCheck": true
-      
+      "skipLibCheck": true,
+      // add global types (../../types.d.ts doesn't transpile)
+      "types": ["../../types"]
+
    },
 }

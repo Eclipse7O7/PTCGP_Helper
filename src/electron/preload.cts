@@ -7,10 +7,7 @@ const electron = require("electron");
 //   under the name "electron" - stops the UI from having too much control
 
 electron.contextBridge.exposeInMainWorld("electron", {
-   // App doesn't like either of these, so commented out
-   //getAppPath: () => electron.app.getAppPath(),
-   //isDev: () => electron.app.isPackaged === false,
-
+ 
    // ".on" and ".send" is a UDP style manner of listening for events, fire-and-forget
    resource_update: (callback: (resource_update: any) => void) => {
       electron.ipcRenderer.on("resource_update", (event: any, stats: any) => {
@@ -20,8 +17,9 @@ electron.contextBridge.exposeInMainWorld("electron", {
    //getStaticData: () => console.log("getStaticData called"),
    // ".invoke" and ".handle" is a request-response style of listening for events
    getStaticData: () => electron.ipcRenderer.invoke("getStaticData"),
+  
+} satisfies Window["electron"]);
 
-   // Add more functions to expose to the renderer process as needed?
-   });
 
+// Add more functions to expose to the renderer process as needed? (in other contextBridges)
    
