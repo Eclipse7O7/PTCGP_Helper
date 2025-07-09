@@ -8,7 +8,7 @@ function App() {
 
   
   useEffect(() => {
-    window.electron.resource_update((stats: any) => {
+    window.electron.resource_update((stats) => {
       console.log(stats);
     });
   }, []);

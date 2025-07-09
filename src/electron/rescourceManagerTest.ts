@@ -8,10 +8,11 @@ import osUtils from "os-utils";
 import os from "os";
 import fs from "fs";
 //import { resolve } from "path";
-import { BrowserWindow } from "electron";
+import { BrowserWindow, webContents } from "electron";
 import { get } from "http";
+import { ipcWebContentsSend } from "./util.js";
 
-const pollingInterval = 500; // 0.5 seconds
+const pollingInterval = 1500; // 0.5 seconds - temporarily 1.5 seconds for testing
 
 export function pollRescources(mainWindow: BrowserWindow) {
    setInterval(async () => {
@@ -21,11 +22,20 @@ export function pollRescources(mainWindow: BrowserWindow) {
       // You can add more resource monitoring functions here
       // e.g., getMemoryUsage(), getDiskUsage(), etc.
       const ramUsage = 1 - osUtils.freememPercentage(); // Calculate RAM usage
-      const storageUsage = getStorageUsage();
+      const storageData = getStorageData();
 
 
-      //console.log({ cpuUsage, ramUsage, storageUsage: storageUsage.usage })
-      mainWindow.webContents.send("resource_update", { cpuUsage, ramUsage, storageUsage: storageUsage.usage });
+      //console.log({ cpuUsage, ramUsage, storageUsage: storageData.usage })
+      //mainWindow.webContents.send("resource_update", { cpuUsage, ramUsage, storageUsage: storageData.usage });
+      var polledData: ResourceUpdate = {
+         cpuUsage: cpuUsage,
+         ramUsage: ramUsage,
+         storageUsage: storageData.usage};
+
+      console.log(polledData);
+      //mainWindow.webContents.send("resource_update", polledData);
+      ipcWebContentsSend("resource_update", mainWindow.webContents, polledData);
+ 
 
    }, pollingInterval);
 }
@@ -33,7 +43,7 @@ export function pollRescources(mainWindow: BrowserWindow) {
 export function getStaticData() {
    const cpuModel = os.cpus()[0].model; // Get the CPU model
    const totalMemory = os.totalmem(); // Get the total memory (in bytes?)
-   const totalStorage = getStorageUsage().total; // Get the total storage (in MB?)
+   const totalStorage = getStorageData().total; // Get the total storage (in MB?)
 
    return {
       cpuModel: cpuModel,
@@ -42,7 +52,7 @@ export function getStaticData() {
    };
 }
 
-function getCPUUsage() {
+function getCPUUsage(): Promise<number> {
    return new Promise((resolve) => {
       // This function should return the CPU usage of the system
       osUtils.cpuUsage(resolve);
@@ -51,7 +61,7 @@ function getCPUUsage() {
 
 }
 
-function getStorageUsage() {
+function getStorageData() {
    const stats = fs.statfsSync(process.platform === "win32" ? "C:\\" : "/");
    const total = stats.bsize * stats.blocks; // Total storage in bytes
    const free = stats.bsize * stats.bfree; // Free storage in bytes

@@ -2,12 +2,13 @@
 // Will change to typescript eventually but using js for now
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import { isDev } from "./util.js";
+import { ipcMainHandle, isDev } from "./util.js";
 import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
 import {  } from "./tcgTrackerTest.js";
 
 //type test = string;
+
 
 // dist-react is the output directory for the React app once it is built
 
@@ -23,59 +24,32 @@ app.on("ready", () => {
   });
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5017");
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
   }
   console.log("App is ready");
 
   pollRescources(mainWindow);
+  
 
-  ipcMain.handle("getStaticData", () => {
+
+  // This is a non-generalised solution
+  /*
+  handleGetStaticData(()=> {
+    return getStaticData();
+  });
+  */
+  // This is the generalised solution for type safety, using the 
+  // wrapper function ipcHandle
+  ipcMainHandle("getStaticData", () => {
     return getStaticData();
   });
 });
 
-
-
+// This is a non-generalised solution
 /*
-// Attempt 1
-const {app, BrowswerWindow } = require('electron');
-const path = require('path');
-const isDev = require('electron-is-dev');
-
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowswerWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  const startUrl = isDev
-    ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`;
-
-  mainWindow.loadURL(startUrl);
-
-  mainWindow.on('closed', () => { mainWindow = null; });
-}
-
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
+function handleGetStaticData(callback: () => StaticData) {
+  ipcMain.handle("getStaticData", callback);
+};
 */

@@ -10,6 +10,13 @@ type StaticData = {
    totalStorage: number; // in MB(?)
 }
 
+type EventPayloadMapping = {
+   "resource_update": ResourceUpdate;
+   "getStaticData": StaticData;
+}
+
+
+
 // Typescript allows for adding things to the "Window" interface, instead of
 //   overriding it
 interface Window {
@@ -18,3 +25,4 @@ interface Window {
       getStaticData: () => Promise<StaticData>;
    }
 }
+
