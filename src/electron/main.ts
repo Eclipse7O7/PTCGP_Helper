@@ -5,7 +5,7 @@ import path from "path";
 import { ipcMainHandle, isDev } from "./util.js";
 import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
-import { openSettings } from "./tcgTrackerTest.js";
+import { openSettings, getCardById, fetchFurret } from "./tcgTrackerTest.js";
 
 //type test = string;
 
@@ -44,11 +44,6 @@ app.on("ready", () => {
     return getStaticData();
   });
 
-  ipcMain.handle("openSettings", () => {
-    // Your logic to open the settings window goes here
-    const found = openSettings();
-    console.log("openSettings called in main.ts, found: ", found);
-  });
   
 });
 
@@ -56,7 +51,7 @@ app.on("ready", () => {
 /*
 function handleGetStaticData(callback: () => StaticData) {
   ipcMain.handle("getStaticData", callback);
-};
+  };
 */
 
 app.on("window-all-closed", () => {
@@ -65,6 +60,20 @@ app.on("window-all-closed", () => {
   }
 });
 
+
+ipcMain.handle("openSettings", () => {
+  // Your logic to open the settings window goes here
+  const found = openSettings();
+  console.log("openSettings called in main.ts, found: ", found);
+});
+
+ipcMain.handle("fetchFurret", async () => {
+  return await fetchFurret();
+});
+
+ipcMain.handle("getCardById", async (_event, cardId: string) => {
+  return await getCardById(cardId);
+});
 
 
 

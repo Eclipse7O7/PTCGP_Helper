@@ -1,6 +1,6 @@
 //import { getStaticData } from "./rescourceManagerTest";
 
-import { openSettings, changeProfile, changeSet, changeView, fetchFurret } from "./tcgTrackerTest";
+import { openSettings, changeProfile, changeSet, changeView, fetchFurret, getCardById } from "./tcgTrackerTest";
 
 const electron = require("electron");
 
@@ -66,9 +66,17 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
    fetchFurret: async () => {
       try {
          electron.ipcRenderer.invoke("fetchFurret")
+         return null; // This should be a placeholder, as the fetchFurret function is async
       } catch (error) {
          console.error("Error fetching Furret:", error);
-      return null;
+         return null;
+      }
+   },
+   getCardById: async (cardId: string) => {
+      try {
+         return await electron.ipcRenderer.invoke("getCardById", cardId);
+      } catch (error) {
+         console.error("Error fetching card by ID:", error);
       }
    },
    // Add more methods as needed

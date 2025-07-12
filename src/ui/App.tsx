@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import TCGDex from '@tcgdex/sdk';
 
 
 function openSettings() {
@@ -19,15 +20,23 @@ function openSettings() {
 }
 
 
+
 function App() {
   const [count, setCount] = useState(0)
-  
+  const [card, setCard] = useState<any>(null);
+
+  async function getFurret() {
+    const result = await window.appMethods.fetchFurret();
+    setCard(result);
+    
+  }
+
   useEffect(() => {
     window.electron.resource_update((stats) => {
       console.log(stats);
     });
   }, []);
-
+  
 
   return (
     <>
@@ -37,17 +46,14 @@ function App() {
           openSettings();
           // function for opening settings
           console.log("Open settings button clicked");
-        }}>
-        </button>
+        }}></button>
         <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/>
-        <button className="setButton" onClick={() => {
-          //function for changing set
-        }}>
+        <button className="setButton" onClick={getFurret}>
+          {card ? card.name : "Click to fetch Furret"}
         </button>
       </header>
+      
       <div>
-        Test
- 
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
@@ -58,7 +64,7 @@ function App() {
         </button>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        This is uh, a thing i guess - might become a "Press to start" kinda page?
       </p>
     </>
   )

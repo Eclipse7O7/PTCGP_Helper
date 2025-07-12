@@ -19,6 +19,21 @@ export async function fetchFurret() {
 };
 
 
+export async function getCardById(cardId: string) {
+   try {
+      const card = await tcgdex.card.get(cardId);
+      if (card) {
+         return card;
+      } else {
+         return null;
+      }
+   } catch (error) {
+      console.error('Error fetching card:', error);
+      return null;
+   }
+}
+
+
 export function openSettings() {
    console.log("tcgTrackerTest.ts: Open settings function called");
    // Here you can implement the logic to open the settings window or dialog
@@ -55,7 +70,4 @@ export function changeView() {
    // This could involve switching between different views or layouts in your application
 }
 
-export function getCardById(cardId: string) {
-   return tcgdex.card.get(cardId);
-}
 
