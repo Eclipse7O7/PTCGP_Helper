@@ -12,7 +12,7 @@ import { BrowserWindow, webContents } from "electron";
 import { get } from "http";
 import { ipcWebContentsSend } from "./util.js";
 
-const pollingInterval = 1500; // 0.5 seconds - temporarily 1.5 seconds for testing
+const pollingInterval = 2500; // 2.5 seconds
 
 export function pollRescources(mainWindow: BrowserWindow) {
    setInterval(async () => {

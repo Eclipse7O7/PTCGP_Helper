@@ -1,5 +1,7 @@
 //import { getStaticData } from "./rescourceManagerTest";
 
+import { openSettings, changeProfile, changeSet, changeView, fetchFurret } from "./tcgTrackerTest";
+
 const electron = require("electron");
 
 // This file can require and use Node.js APIs etc without risking security issues
@@ -47,3 +49,30 @@ function ipcOn<Key extends keyof EventPayloadMapping>(
 
 // Add more functions to expose to the renderer process as needed? (in other contextBridges)
    
+electron.contextBridge.exposeInMainWorld("appMethods", {
+   openSettings: () => {
+      electron.ipcRenderer.invoke("openSettings");
+      console.log("preload: openSettings called");
+   },
+   changeSet: (setName: string) => {
+      //
+   },
+   changeProfile: (profileName: string) => {
+      //
+   },
+   changeView: (viewName: string) => {
+      //
+   },
+   fetchFurret: async () => {
+      try {
+         electron.ipcRenderer.invoke("fetchFurret")
+      } catch (error) {
+         console.error("Error fetching Furret:", error);
+      return null;
+      }
+   },
+   // Add more methods as needed
+});
+
+
+

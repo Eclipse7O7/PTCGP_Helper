@@ -5,7 +5,7 @@ import path from "path";
 import { ipcMainHandle, isDev } from "./util.js";
 import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
-import {  } from "./tcgTrackerTest.js";
+import { openSettings } from "./tcgTrackerTest.js";
 
 //type test = string;
 
@@ -24,7 +24,7 @@ app.on("ready", () => {
   });
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5017");
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
   }
@@ -32,8 +32,6 @@ app.on("ready", () => {
 
   pollRescources(mainWindow);
   
-
-
   // This is a non-generalised solution
   /*
   handleGetStaticData(()=> {
@@ -45,6 +43,13 @@ app.on("ready", () => {
   ipcMainHandle("getStaticData", () => {
     return getStaticData();
   });
+
+  ipcMain.handle("openSettings", () => {
+    // Your logic to open the settings window goes here
+    const found = openSettings();
+    console.log("openSettings called in main.ts, found: ", found);
+  });
+  
 });
 
 // This is a non-generalised solution
@@ -53,3 +58,18 @@ function handleGetStaticData(callback: () => StaticData) {
   ipcMain.handle("getStaticData", callback);
 };
 */
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+
+
+
+
+
+
+
+

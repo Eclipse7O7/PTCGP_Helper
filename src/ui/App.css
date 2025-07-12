@@ -40,3 +40,171 @@
 .read-the-docs {
   color: #888;
 }
+
+
+#landing {
+	display: absolute;
+	z-index: 0;
+	position: fixed;
+	height: 100vh;
+	background: rgb(225, 222, 213);
+	padding: 0 10vw 8vw 10vw;
+	color: black;
+}
+
+#background {
+	width: 100%;
+	height: fit-content;
+}
+
+#info-content {
+	display: grid;
+	grid-template-areas: "txt profile"
+							"txt socials";
+	grid-gap: 0 4vw;
+	grid-template-columns: 3fr 2fr;
+	background-image: url("/public/assets/blog_bg.png");
+	background-size:cover;
+	border-radius: 1vw;
+	padding: 4vw;
+	height: calc(100% - 22vw);
+}
+
+#info-content h2 {
+	font-size: 2.5vw;
+	line-height: 0.5em;
+}
+
+#info-content h3 a {
+	padding: 0;
+}
+
+#info-text {
+	grid-area: txt;
+	width: 100%;
+	background-color: rgba(225, 222, 213, 0.7);
+	border-radius: 0.4vw;
+	border: 0.4vw solid rgba(225, 222, 213, 0.2);
+	font-size: 1.2vw;
+}
+
+#info-text * {
+	padding: 0 2vw;
+}
+
+#info-text p:first-of-type {
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+}
+
+#profile {
+	grid-area: profile;
+	display: flex;
+	width: 90%;
+	border: 0.4vw solid rgba(212, 208, 192, 0.2);
+	border-radius: 20vw;
+	margin: auto;
+	justify-content: center;
+	overflow: hidden;
+}
+
+#profile img {
+	width: 108%;
+	height: fit-content;
+}
+
+#socials {
+	grid-area: socials;
+	width: 100%;
+	margin: auto;
+	margin-top: 0;
+}
+
+.triangle-up {
+	border-left: 50vw solid transparent;
+	border-right: 50vw solid transparent;
+	border-bottom: 8vw solid rgb(7, 10, 7);
+	transform: translateY(100vh);
+}
+
+#content {
+	transform: translateY(100vh);
+	padding: 5vw 10vw;
+	background: rgb(7, 10, 7);
+}
+
+main > h2 {
+	padding-top: 10vh;
+}
+
+#skills {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	justify-content: left;
+}
+
+#skills li {
+	width: fit-content;
+	padding: 0.5vw 1vw;
+	margin: 0 2vw 4vw 0;
+	text-align: center;
+	background-color: rgb(32, 63, 32, 0.4);
+	color: rgb(78, 132, 78);
+	border: 0.15vw solid rgb(32, 63, 32);
+	border-radius: 0.5vw;
+	font-size: 1.5vw;
+}
+
+#education {
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+}
+
+#education div {
+	position: relative;
+	background-color: rgb(10, 13, 10);
+	color: rgb(165, 172, 165);
+	border: 0.15vw solid rgb(25, 28, 25);
+	border-radius: 0.5vw;
+	margin: 2vw 0;
+	padding: 1vw 2vw;
+	width: fit-content;
+	min-width: 40%;
+}
+
+#education h3 a {
+	padding-right: 10vw;
+	color: rgb(225, 222, 213);
+	text-decoration: none;
+}
+
+#education ul {
+	list-style: none;
+	padding: 0;
+}
+
+#education li::marker {
+	font-size: 1.2vw;
+}
+
+#education p, #education li {
+	font-size: 1vw;
+}
+
+#education p {
+	position: absolute;
+	padding: 0 2vw;
+	right: 0;
+	top: 0;
+	font-size: 0.8vw;
+}
+
+#education ul {
+	padding: 0.5vw 0;
+	margin-top: 1vw;
+	width: fit-content;
+}
