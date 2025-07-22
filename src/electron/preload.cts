@@ -65,8 +65,7 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
    },
    fetchFurret: async () => {
       try {
-         electron.ipcRenderer.invoke("fetchFurret")
-         return null; // This should be a placeholder, as the fetchFurret function is async
+         return await electron.ipcRenderer.invoke("fetchFurret")
       } catch (error) {
          console.error("Error fetching Furret:", error);
          return null;

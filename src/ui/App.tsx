@@ -23,11 +23,18 @@ function openSettings() {
 
 function App() {
   const [count, setCount] = useState(0)
-  const [card, setCard] = useState<any>(null);
+  const [cardName, setCard] = useState<any>(null);
 
   async function getFurret() {
     const result = await window.appMethods.fetchFurret();
-    setCard(result);
+    //console.log("getFurret called, result:", result);
+    if (result) {
+      console.log("Furret fetched successfully:", result);
+      setCard(result);
+
+    } else {
+      console.error("Failed to fetch Furret.");
+    }
     
   }
 
@@ -49,7 +56,7 @@ function App() {
         }}></button>
         <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/>
         <button className="setButton" onClick={getFurret}>
-          {card ? card.name : "Click to fetch Furret"}
+          {cardName ? cardName + "!" : "Click to fetch"}
         </button>
       </header>
       

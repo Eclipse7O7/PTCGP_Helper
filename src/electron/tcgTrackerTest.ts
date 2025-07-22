@@ -2,12 +2,17 @@ import TCGdex from "@tcgdex/sdk";
 
 const tcgdex = new TCGdex('en');
 
+
+// This can't return the card object as it is not serializable, so for now return the name
+// This is a workaround until I can figure out how to serialize the card object
+// - can't stringify it as it has circular references
 export async function fetchFurret() {
    try {
       const card = await tcgdex.card.get('swsh3-136');
       if (card) {
          console.log(card.name);
-         return card;
+         return card.name;
+         
       } else {
          console.error('Card not found.');
          return null;
