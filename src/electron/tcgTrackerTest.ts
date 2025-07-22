@@ -11,8 +11,18 @@ export async function fetchFurret() {
       const card = await tcgdex.card.get('swsh3-136');
       if (card) {
          console.log(card.name);
-         return card.name;
-         
+         return {
+            name: card.name,
+            image: card.getImageURL('low', 'png'),
+            id: card.id,
+            set: card.set.name,
+            rarity: card.rarity,
+            types: card.types,
+            hp: card.hp,
+            stage: card.stage,
+            illustrator: card.illustrator,
+         };
+
       } else {
          console.error('Card not found.');
          return null;
@@ -23,12 +33,23 @@ export async function fetchFurret() {
    }
 };
 
-
+// Needs changing to return the CardData form of the card - CardData might need 
+//   to be updated to work with the ptcg pocket cards, have to test
 export async function getCardById(cardId: string) {
    try {
       const card = await tcgdex.card.get(cardId);
       if (card) {
-         return card;
+         return {
+            name: card.name,
+            image: card.getImageURL('low', 'png'),
+            id: card.id,
+            set: card.set.name,
+            rarity: card.rarity,
+            types: card.types,
+            hp: card.hp,
+            stage: card.stage,
+            illustrator: card.illustrator,
+         };
       } else {
          return null;
       }
@@ -37,6 +58,34 @@ export async function getCardById(cardId: string) {
       return null;
    }
 }
+
+export async function getSetById(setId: string) {
+   try {
+      const set = await tcgdex.set.get(setId);
+      if (set) {
+         console.log(`\nSet fetched: ${set.name}`);
+         for (const card of set.cards) {
+            console.log(`Card: ${card.name}, ID: ${card.id}`);
+         }
+         return {
+            id: set.id,
+            name: set.name,
+            cards: set.cards.map(card => ({
+               name: card.name,
+               image: card.getImageURL('low', 'png'),
+               id: card.id,
+            })),
+         };
+      } else {
+         return null;
+      }
+   } catch (error) {
+      console.error('Error fetching set:', error);
+      return null;
+   }
+}
+
+
 
 
 export function openSettings() {

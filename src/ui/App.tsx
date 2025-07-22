@@ -23,10 +23,11 @@ function openSettings() {
 
 function App() {
   const [count, setCount] = useState(0)
-  const [cardName, setCard] = useState<any>(null);
+  const [card, setCard] = useState<any>(null);
+  const [set, setSet] = useState<any>(null);
 
   async function getFurret() {
-    const result = await window.appMethods.fetchFurret();
+    const result : CardData | null = await window.appMethods.fetchFurret();
     //console.log("getFurret called, result:", result);
     if (result) {
       console.log("Furret fetched successfully:", result);
@@ -35,8 +36,41 @@ function App() {
     } else {
       console.error("Failed to fetch Furret.");
     }
-    
   }
+
+  async function getCardById(cardId: string) {
+    try {
+      const card : CardData | null = await window.appMethods.getCardById(cardId);
+      if (card) {
+        console.log("Card fetched successfully:", card);
+        setCard(card);
+      } else {
+        console.error("Card not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching card by ID:", error);
+    }
+  }
+
+  async function getSetById(setId: string) {
+    try {
+      const set = await window.appMethods.getSetById(setId);
+      if (set) {
+        console.log(`Set fetched: ${set.name}`);
+        setSet(set);
+        // Display names of cards in the set in frontend console
+        for (const card of set.cards) {
+          console.log(`Card: ${card.name}, ID: ${card.id}`);
+        }
+      } else {
+        console.error("Set not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching set by ID:", error);
+    }
+  }
+
+
 
   useEffect(() => {
     window.electron.resource_update((stats) => {
@@ -56,20 +90,43 @@ function App() {
         }}></button>
         <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/>
         <button className="setButton" onClick={getFurret}>
-          {cardName ? cardName + "!" : "Click to fetch"}
+          {card ? card.name + "!" : "Click to fetch"}
         </button>
+        <div className="card">
+          {card && <img src={card.image} alt={card.name} />}
+        </div>
       </header>
-      
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+
+
+      <h1>PTCGP Helper Testing Page</h1>
+      <button onClick={() => getSetById("A1")}>Show Set A1</button>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
       </div>
+      
+      <div className="card">
+        <input type="text" placeholder="Enter card ID" id="cardIdInput" />
+
+        <button onClick={() => {
+          const cardIdInput = document.getElementById("cardIdInput") as HTMLInputElement;
+          const cardId = cardIdInput.value.trim();
+          if (cardId) {
+            getCardById(cardId);
+          } else {
+            console.error("Please enter a valid card ID.");
+          }
+        }}>
+          Fetch Card
+        </button>
+        
+        <button onClick={() => getCardById("swsh7-1")}>
+          Get Card by ID Pinsir
+        </button>
+      </div>
+
       <p className="read-the-docs">
         This is uh, a thing i guess - might become a "Press to start" kinda page?
       </p>

@@ -17,6 +17,25 @@ type EventPayloadMapping = {
 
 
 
+type CardData = {
+   name: string,
+   image: string,
+   id: string,
+   set: string,
+   rarity: string,
+   types: string[],
+   hp: number,
+   stage: string,
+   illustrator: string,
+}
+
+type SetData = {
+   id: string,
+   name: string,
+   cards: CardData[],
+}
+
+
 // Typescript allows for adding things to the "Window" interface, instead of
 //   overriding it
 interface Window {
@@ -29,7 +48,9 @@ interface Window {
       changeSet: (setName: string) => void;
       changeProfile: (profileName: string) => void;
       changeView: (viewName: string) => void;
-      fetchFurret: () => Promise<any>; // Replace "any" with the actual type if known
+      fetchFurret: () => Promise<CardData | null>; 
+      getCardById: (cardId: string) => Promise<CardData | null>; 
+      getSetById: (setId: string) => Promise<SetData | null>; 
    }
 }
 

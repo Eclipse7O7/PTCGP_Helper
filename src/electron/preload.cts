@@ -1,6 +1,6 @@
 //import { getStaticData } from "./rescourceManagerTest";
 
-import { openSettings, changeProfile, changeSet, changeView, fetchFurret, getCardById } from "./tcgTrackerTest";
+import { openSettings, changeProfile, changeSet, changeView, fetchFurret, getCardById, getSetById } from "./tcgTrackerTest";
 
 const electron = require("electron");
 
@@ -76,6 +76,15 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
          return await electron.ipcRenderer.invoke("getCardById", cardId);
       } catch (error) {
          console.error("Error fetching card by ID:", error);
+         return null;
+      }
+   },
+   getSetById: async (setId: string) => {
+      try {
+         return await electron.ipcRenderer.invoke("getSetById", setId);
+      } catch (error) {
+         console.error("Error fetching set by ID:", error);
+         return null;
       }
    },
    // Add more methods as needed
