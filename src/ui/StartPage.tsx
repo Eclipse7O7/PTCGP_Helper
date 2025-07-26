@@ -13,14 +13,14 @@ export default function StartPage() {
       logo.classList.add("spin-expand");
       setTimeout(() => {
          logo.classList.remove("spin-expand");
-         //navigate("/inventory");
+         navigate("/inventory");
       }, 1400);
    }
 
 
    return (
       <div>
-         <button onClick={openInventory}> <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/></button>
+         <button className="startButton" onClick={openInventory}> <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/></button>
          <h1>PTCGP Helper</h1>
       </div>
    );

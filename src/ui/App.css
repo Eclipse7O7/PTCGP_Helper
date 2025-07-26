@@ -28,6 +28,15 @@
    }
 }
 
+.settingsIcon {
+	width: 3em;
+	height: 3em;
+	position: fixed;
+	top: 1rem;
+	left: 1rem;
+	cursor: pointer;
+}
+
 @media (prefers-reduced-motion: no-preference) {
    a:nth-of-type(2) .logo {
      animation: logo-spin infinite 20s linear;
