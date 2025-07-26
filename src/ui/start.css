@@ -1,0 +1,44 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+button {
+   border-radius: 4%;
+   background: none;
+   border: none;
+}
+
+
+
+
+.logo {
+   height: 13em;
+   border-radius: 20%;
+   transition: transform 1.3s cubic-bezier(0.4, 0.2, 0.2, 1.1);
+}
+
+.logo.spin-expand {
+   transform: rotate(360deg) scale(2);
+}
+
+@media (prefer-reduced-motion : reduce) {
+   .logo {
+      transition: none;
+   }
+
+   .logo.spin-expand {
+      transform: none;
+   }
+}
