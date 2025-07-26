@@ -12,8 +12,6 @@ import StartPage from './StartPage';
 function App() {
   
 
-
-
   useEffect(() => {
     window.electron.resource_update((stats) => {
       console.log(stats);
@@ -23,11 +21,11 @@ function App() {
 
   return (
     <Router>
-      <nav className="testNav">
+      {/* <nav className="testNav">
         <Link to="/">Start Page</Link>
         <Link to="/test">Test Page</Link>
         <Link to="/inventory">Inventory Page</Link>
-      </nav>
+      </nav> */}
        <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/inventory" element={<InventoryPage />} />

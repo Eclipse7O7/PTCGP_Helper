@@ -1,0 +1,42 @@
+
+h3 {
+   margin: 0;
+   font-size: 1.5em;
+}
+
+button {
+   background-color: transparent;
+   border: 2px solid white;
+   color: white;
+   padding: 3px 30px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   margin: 4px 2px;
+   cursor: pointer;
+}
+
+.profileButton {
+
+   position: fixed;
+   top: 1rem;
+   left: 10rem;
+}
+
+.setButton {
+   position: fixed;
+   top: 1rem;
+   left: 20rem;
+}
+
+.viewButton {
+   position: fixed;
+   top: 1rem;
+   left: 27.5rem;
+}
+
+
+.profileButton:hover, .setButton:hover, .viewButton:hover {
+   filter: drop-shadow(0 0 1em #d0d0d0);
+}

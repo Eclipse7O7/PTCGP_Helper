@@ -14,8 +14,9 @@ import { openSettings, getCardById, getSetById, fetchFurret } from "./tcgTracker
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 600,
     height: 600,
+    minWidth: 600,
     webPreferences: {
       // Using a preload script as it is better for security reasons than enabling nodeIntegration
       nodeIntegration: false,
