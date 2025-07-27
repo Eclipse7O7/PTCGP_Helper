@@ -12,6 +12,7 @@ import StartPage from './StartPage';
 function App() {
   
 
+
   useEffect(() => {
     window.electron.resource_update((stats) => {
       console.log(stats);
@@ -21,11 +22,11 @@ function App() {
 
   return (
     <Router>
-      {/* <nav className="testNav">
+      { <nav className="testNav">
         <Link to="/">Start Page</Link>
         <Link to="/test">Test Page</Link>
         <Link to="/inventory">Inventory Page</Link>
-      </nav> */}
+      </nav> }
        <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
@@ -35,33 +36,6 @@ function App() {
    
   )
 
-
-  /*
-  return (
-    <>
-      <div>
-        Test for GitHub
-
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-
-*/
 
 }
 export default App

@@ -18,15 +18,18 @@ type EventPayloadMapping = {
 
 
 type CardData = {
+   id: string,
    name: string,
    image: string,
-   id: string,
-   set: string,
-   rarity: string,
-   types: string[],
-   hp: number,
-   stage: string,
-   illustrator: string,
+    // Only used for ptcg pocket cards
+   localId?: string,
+    // Think aren't used for pocket cards
+   set?: string,
+   rarity?: string,
+   types?: string[],
+   hp?: number,
+   stage?: string,
+   illustrator?: string,
 }
 
 type SetData = {
@@ -35,6 +38,28 @@ type SetData = {
    cards: CardData[],
 }
 
+
+
+
+type profileData = {
+   name: string,
+   collection: [
+      {
+         card: CardData,
+         quantity: number,
+      }
+   ],
+   settings: {
+      language: string,
+      theme: "DARK" | "LIGHT",
+   }
+}
+
+enum inventoryOptions {
+   SELECT_CARD = "SELECT_CARD",
+   ADD_CARD = "ADD_CARD",
+   REMOVE_CARD = "REMOVE_CARD",
+}
 
 // Typescript allows for adding things to the "Window" interface, instead of
 //   overriding it

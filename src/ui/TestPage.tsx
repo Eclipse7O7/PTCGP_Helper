@@ -4,10 +4,10 @@ import TCGDex from '@tcgdex/sdk';
 
 export default function TestPage() {
   const [count, setCount] = useState(0)
-  const [card, setCard] = useState<any>(null);
-  const [set, setSet] = useState<any>(null);
+  const [card, setCard] = useState<CardData | null>(null);
+  const [set, setSet] = useState<SetData | null>(null);
 
-  async function getFurret() {
+  async function getFurretUI() {
     const result : CardData | null = await window.appMethods.fetchFurret();
     //console.log("getFurret called, result:", result);
     if (result) {
@@ -19,7 +19,7 @@ export default function TestPage() {
     }
   }
 
-  async function getCardById(cardId: string) {
+  async function getCardByIdUI(cardId: string) {
     try {
       const card : CardData | null = await window.appMethods.getCardById(cardId);
       if (card) {
@@ -33,15 +33,17 @@ export default function TestPage() {
     }
   }
 
-  async function getSetById(setId: string) {
+  async function getSetByIdUI(setId: string) {
     try {
       const set = await window.appMethods.getSetById(setId);
       if (set) {
         console.log(`Set fetched: ${set.name}`);
         setSet(set);
         // Display names of cards in the set in frontend console
+        console.log(`Set: ${set.name}, ID: ${set.id}`);
         for (const card of set.cards) {
           console.log(`Card: ${card.name}, ID: ${card.id}`);
+          console.log(`Image: ${card.image}, Set: ${card.set}, Rarity: ${card.rarity}, HP: ${card.hp}, Stage: ${card.stage}, Illustrator: ${card.illustrator}`);
         }
       } else {
         console.error("Set not found.");
@@ -61,7 +63,7 @@ export default function TestPage() {
           console.log("Open settings button clicked");
         }}></button>
         <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/>
-        <button className="setButton test_button" onClick={getFurret}>
+        <button className="setButton test_button" onClick={getFurretUI}>
           {card ? card.name + "!" : "Click to fetch"}
         </button>
         <div className="card">
@@ -72,7 +74,7 @@ export default function TestPage() {
 
       <h1>PTCGP Helper Testing Page</h1>
 
-      <button className='test_button' onClick={() => getSetById("A1")}>Show Set A1</button>
+      <button className='test_button' onClick={() => getSetByIdUI("A1")}>Show Set A1</button>
 
       <div className="card">
         <button className='test_button' onClick={() => setCount((count) => count + 1)}>
@@ -87,7 +89,7 @@ export default function TestPage() {
           const cardIdInput = document.getElementById("cardIdInput") as HTMLInputElement;
           const cardId = cardIdInput.value.trim();
           if (cardId) {
-            getCardById(cardId);
+            getCardByIdUI(cardId);
           } else {
             console.error("Please enter a valid card ID.");
           }
@@ -95,7 +97,7 @@ export default function TestPage() {
           Fetch Card
         </button>
 
-        <button className='test_button' onClick={() => getCardById("swsh7-1")}>
+        <button className='test_button' onClick={() => getCardByIdUI("swsh7-1")}>
           Get Card by ID Pinsir
         </button>
       </div>

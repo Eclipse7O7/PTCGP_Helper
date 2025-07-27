@@ -1,6 +1,12 @@
+import { useEffect, useState } from 'react'
 import './inventoryPage.css';
 
 export default function InventoryPage() {
+
+  const [currentSet, setSet] = useState<SetData | null>(null);
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [inventoryOption, setInventoryOption] = useState<inventoryOptions | null>(null);
+
 
   function openProfile() {
     console.log("Profile button clicked");
@@ -16,12 +22,18 @@ export default function InventoryPage() {
     console.log("Settings icon clicked");
   });
   document.querySelector(".dotIcon")?.addEventListener("click", () => {
+    // Toggle the inventory option for selecting cards if not already selected
+    inventoryOption === inventoryOptions.SELECT_CARD ? setInventoryOption(null) : setInventoryOption(inventoryOptions.SELECT_CARD);
     console.log("Select Cards icon clicked");
   });
   document.querySelector(".minusIcon")?.addEventListener("click", () => {
+    // Toggle the inventory option for removing cards if not already selected
+    inventoryOption === inventoryOptions.REMOVE_CARD ? setInventoryOption(null) : setInventoryOption(inventoryOptions.REMOVE_CARD);
     console.log("Remove Cards icon clicked");
-  });
+  });  
   document.querySelector(".plusIcon")?.addEventListener("click", () => {
+    // Toggle the inventory option for adding cards if not already selected
+    inventoryOption === inventoryOptions.ADD_CARD ? setInventoryOption(null) : setInventoryOption(inventoryOptions.ADD_CARD);
     console.log("Add Cards icon clicked");
   });
 

@@ -30,7 +30,7 @@
 }
 
 .logo.spin-expand {
-   transform: rotate(360deg) scale(2);
+   transform: rotate(360deg) scale(1.7);
 }
 
 @media (prefer-reduced-motion : reduce) {

@@ -66,14 +66,17 @@ export async function getSetById(setId: string) {
          console.log(`\nSet fetched: ${set.name}`);
          for (const card of set.cards) {
             console.log(`Card: ${card.name}, ID: ${card.id}`);
+            console.log(`Image: ${card.getImageURL('low', 'png')}, LocalID: ${card.localId}`);
          }
+
          return {
             id: set.id,
             name: set.name,
             cards: set.cards.map(card => ({
+               id: card.id,
                name: card.name,
                image: card.getImageURL('low', 'png'),
-               id: card.id,
+               localId: card.localId,
             })),
          };
       } else {
