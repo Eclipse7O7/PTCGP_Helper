@@ -87,7 +87,15 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
          return null;
       }
    },
-   // Add more methods as needed
+   getProfileById: async (profileId: number) => {
+      try {
+         return await electron.ipcRenderer.invoke("getProfileById", profileId);
+      } catch (error) {
+         console.error("Error fetching profile:", error);
+         return null;
+      }
+   },
+   // Add more methods as needed (remember to add to types.d.ts)
 });
 
 

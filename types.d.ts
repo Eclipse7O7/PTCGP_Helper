@@ -41,7 +41,8 @@ type SetData = {
 
 
 
-type profileData = {
+type ProfileData = {
+   id: number,
    name: string,
    collection: [
       {
@@ -55,7 +56,7 @@ type profileData = {
    }
 }
 
-enum inventoryOptions {
+enum InventoryOptions {
    SELECT_CARD = "SELECT_CARD",
    ADD_CARD = "ADD_CARD",
    REMOVE_CARD = "REMOVE_CARD",
@@ -75,7 +76,9 @@ interface Window {
       changeView: (viewName: string) => void;
       fetchFurret: () => Promise<CardData | null>; 
       getCardById: (cardId: string) => Promise<CardData | null>; 
-      getSetById: (setId: string) => Promise<SetData | null>; 
+      getSetById: (setId: string) => Promise<SetData | null>;
+      getProfileById: (profileId: number) => Promise<ProfileData | null>;
+      // Add more methods as needed (remember to add to preload.cts)
    }
 }
 

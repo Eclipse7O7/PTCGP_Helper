@@ -103,7 +103,7 @@ export default function TestPage() {
       </div>
 
       <p className="read-the-docs">
-        This is uh, a thing i guess - might become a "Press to start" kinda page?
+        This is uh, a thing i guess - Initial page will become a "Press to start" kinda page
       </p>
     </>
   )

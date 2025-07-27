@@ -5,7 +5,7 @@ import path from "path";
 import { ipcMainHandle, isDev } from "./util.js";
 import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
-import { openSettings, getCardById, getSetById, fetchFurret } from "./tcgTrackerTest.js";
+import { openSettings, getCardById, getSetById, fetchFurret, getProfileById } from "./tcgTrackerTest.js";
 
 //type test = string;
 
@@ -80,7 +80,9 @@ ipcMain.handle("getSetById", async (_event, setId: string) => {
   return await getSetById(setId);
 });
 
-
+ipcMain.handle("getProfileById", async (_event, profileId: number) => {
+  return await getProfileById(profileId);
+});
 
 
 
