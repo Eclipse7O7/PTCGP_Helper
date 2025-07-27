@@ -1,7 +1,12 @@
 import TCGdex from "@tcgdex/sdk";
+import path from "path";
+import fs from "fs/promises";
+import { fileURLToPath } from "url";
 
 const tcgdex = new TCGdex('en');
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // This can't return the card object as it is not serializable, so for now return the name
 // This is a workaround until I can figure out how to serialize the card object
@@ -138,7 +143,8 @@ export function changeView() {
 export async function getProfileById(profileId: number): Promise<any> { //ProfileData | null> {
    // Placeholder for profile fetching logic
    console.log(`Fetching profile with ID: ${profileId}`);
-   // Simulating a profile fetch - replace once tested
+   /*
+   // Simulating a profile fetch
    return {
       id: profileId,
       name: "test",
@@ -158,17 +164,22 @@ export async function getProfileById(profileId: number): Promise<any> { //Profil
          theme: "light",
       },
    };
-   // return readProfileJsonFile();
+   */
+   const loggedData = await readProfileJsonFile();
+   //return loggedData ? loggedData.profiles.find((profile: any) => profile.id === profileId) : null;
+
+   return loggedData.profiles[0];
+
 }
 
-async function readProfileJsonFile(): Promise<ProfileData | null> {
+async function readProfileJsonFile(): Promise<any> {
    try {
-      const response = await fetch('../../profile.json');
-      if (!response.ok) {
-         throw new Error(`HTTP error while fetching profile! status: ${response.status}`);
-      }
-      const data: ProfileData = await response.json();
-      return data;
+      const data = JSON.parse(await fs.readFile(path.join(__dirname, "../profiles.json"), "utf-8"));
+      // Technically unecessary, but am using as a reminder on how the data is structured
+      return {
+         currentProfile: data.currentProfile,
+         profiles: data.profiles
+      };
 
    } catch (error) {
       console.error('Error reading the profile JSON file:', error);

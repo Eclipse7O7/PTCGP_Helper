@@ -1,8 +1,7 @@
 {
    "currentProfile": "default",
-   "profiles": {
-
-      "default": {
+   "profiles": [
+      {
          "id": 0,
          "name": "Default Profile",
          "collection": [
@@ -10,9 +9,17 @@
             "card": {
                "id": "A1-001",
                "name": "Bulbasaur",
-               "image":"https://assets.tcgdex.net/en/tcgp/A1/001"
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/001/low.png"
                },
             "quantity": 3
+            },
+            {
+            "card": {
+               "id": "A1-002",
+               "name": "Ivysaur",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               },
+            "quantity": 2
             }
          ],
          "settings": {
@@ -21,7 +28,7 @@
          }
       },
 
-      "profile1": {
+      {
          "id": 1,
          "name": "Profile 1",
          "collection": [],
@@ -29,6 +36,6 @@
             "language": "en",
             "theme": "dark"
          }
-      },
-   }
+      }
+   ]
 }
