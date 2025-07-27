@@ -38,6 +38,7 @@ export default function InventoryPage() {
   });
 
 
+  // Not final functionality - for testing purposes only !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   async function getProfileByIdUI(profileId: number) {
     const profile = await window.appMethods.getProfileById(profileId);
@@ -46,7 +47,13 @@ export default function InventoryPage() {
       var tempButton = document.querySelector(".temp");
       if (tempButton) {
         console.log("\nProfile fetched successfully:", profile, "\n\n");
-        tempButton.textContent = `Profile: ${profile.id}`;
+        tempButton.textContent = `Profile: ${profile.name}`;
+        tempButton.after(document.createElement("br"));
+        const img = document.createElement("img");
+        img.className = "cardImage";
+        img.src = profile.collection[0].card.image;
+        img.alt = profile.collection[0].card.name;
+        tempButton.after(img);
       }
     }
   }

@@ -138,11 +138,21 @@ export function changeView() {
 export async function getProfileById(profileId: number): Promise<any> { //ProfileData | null> {
    // Placeholder for profile fetching logic
    console.log(`Fetching profile with ID: ${profileId}`);
-   // Simulate a profile fetch - replace once tested
+   // Simulating a profile fetch - replace once tested
    return {
       id: profileId,
       name: "test",
-      collection: [],
+      collection: [
+            { 
+            "card": {
+               "id": "A1-001",
+               "name": "Bulbasaur",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/001/low.png",
+               "localId": "001",
+               },
+            "quantity": 3
+            }
+         ],
       settings: {
          language: "en",
          theme: "light",

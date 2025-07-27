@@ -18,7 +18,6 @@ button {
 }
 
 .profileButton {
-
    position: fixed;
    top: 1rem;
    left: 10rem;
@@ -40,3 +39,12 @@ button {
 .profileButton:hover, .setButton:hover, .viewButton:hover {
    filter: drop-shadow(0 0 1em #d0d0d0);
 }
+
+
+/* Needs adjusting !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+.cardImage {
+   width: 80px;
+   margin-top: 10px;
+   display: flex;
+}
+
