@@ -15,7 +15,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    //"noEmit": true,
     "jsx": "react-jsx",
 
     //"outDir": "../../dist-electron",
@@ -27,7 +27,10 @@
   "exclude": ["src/electron"],
   //"files": [],
   "references": [
-    //{ "path": "./tsconfig.app.json" },
+    //Gives a warning that it doesn't disable emit, but it needs to be set to
+    //  true for allowImportingTsExtensions to work and for it to build properly
+    //  Ended up commenting it out in both as well as allowImportingTsExtensions
+    //  and seems to let it build now \_o_/
     { "path": "./tsconfig.node.json" }
   ], 
 }

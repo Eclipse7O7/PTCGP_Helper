@@ -3,9 +3,9 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import InventoryPage from './InventoryPage';
-import TestPage from './testPage';
 import StartPage from './StartPage';
-//import TestPage from './TestPage';
+import TestPage from './TestPage';
+
 
 
 
@@ -19,6 +19,9 @@ function App() {
     });
   }, []);
   
+
+  // This Routing doesn't work in the build version, but works in dev
+  // *crying face* - debug why and see if its as the base path is different in the build version
 
   return (
     <Router>

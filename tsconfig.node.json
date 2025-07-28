@@ -8,9 +8,10 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    // Only builds when these are commented out 
+    //"allowImportingTsExtensions": true,
     //"noEmit": true,
 
     /* Linting */
@@ -21,10 +22,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    // tsconfig said i needed this
+    // tsconfig said i needed this as that references this
     "composite": true,
     "noEmit": false
-    // also says i need 'noEmit' to be true but that is already set
+    
+    // also says i need 'noEmit' to be true as well as false? idk
   },
   "include": ["vite.config.ts"]
 }

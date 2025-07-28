@@ -13,6 +13,16 @@ dist-ssr
 dist-react
 dist-electron
 *.local
+# These might not have built into dist correctly? !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Were all created by the build process
+App.js
+InventoryPage.js
+TestPage.js
+StartPage.js
+main.js
+tsconfig.tsbuildinfo
+vite.config.d.ts
+vite.config.js
 
 # Editor directories and files
 .vscode/*
