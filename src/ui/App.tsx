@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import InventoryPage from './InventoryPage';
 import StartPage from './StartPage';
 import TestPage from './TestPage';
 
 
 
-
 function App() {
   
-
 
   useEffect(() => {
     window.electron.resource_update((stats) => {
@@ -19,9 +17,6 @@ function App() {
     });
   }, []);
   
-
-  // This Routing doesn't work in the build version, but works in dev
-  // *crying face* - debug why and see if its as the base path is different in the build version
 
   return (
     <Router>

@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 import './inventoryPage.css';
 
+import settingsIcon from './assets/settings_cog_whiteish.png';
+import dotIcon from './assets/dot_whiteish.png';
+import minusIcon from './assets/minus_whiteish.png';
+import plusIcon from './assets/plus_whiteish.png';
+
+
 export default function InventoryPage() {
 
   const [currentSet, setSet] = useState<SetData | null>(null);
@@ -59,12 +65,16 @@ export default function InventoryPage() {
   }
 
 
+
+
+
+
   return (
     <div>
-      <img src="src/ui/assets/settings_cog_whiteish.png" className="settingsIcon" alt="Settings Icon"/>
-      <img src="src/ui/assets/dot_whiteish.png" className="dotIcon" alt="Select Cards"/>
-      <img src="src/ui/assets/minus_whiteish.png" className="minusIcon" alt="Remove Cards"/>
-      <img src="src/ui/assets/plus_whiteish.png" className="plusIcon" alt="Add Cards"/>
+      <img src={settingsIcon} className="settingsIcon" alt="Settings Icon"/>
+      <img src={dotIcon} className="dotIcon" alt="Select Cards"/>
+      <img src={minusIcon} className="minusIcon" alt="Remove Cards"/>
+      <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>

@@ -166,9 +166,10 @@ export async function getProfileById(profileId: number): Promise<any> { //Profil
    };
    */
    const loggedData = await readProfileJsonFile();
-   //return loggedData ? loggedData.profiles.find((profile: any) => profile.id === profileId) : null;
+   //return loggedData.profiles[profileId];
+   //Might be a bit more robust to use find() instead of indexing by the ID
+   return loggedData ? loggedData.profiles.find((profile: any) => profile.id === profileId) : null;
 
-   return loggedData.profiles[0];
 
 }
 

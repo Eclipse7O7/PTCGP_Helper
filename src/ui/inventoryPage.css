@@ -45,6 +45,15 @@ button {
 .cardImage {
    width: 80px;
    margin-top: 10px;
-   display: flex;
+   display: flex; /* Maybe inline-flex? */
+   border-radius: 5%;
 }
 
+div .cardPlaceholder {
+   background: none;
+   border: 2px solid white;
+   border-radius: 5%;
+   width: 80px;
+   margin-top: 10px;
+   display: flex; /* Maybe inline-flex? */
+}

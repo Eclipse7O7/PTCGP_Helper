@@ -1,6 +1,8 @@
 import './start.css'
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
+import PTCGPLogo from './assets/PTCGP_logo.png';
+
 export default function StartPage() {
    const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ export default function StartPage() {
 
    return (
       <div>
-         <button className="startButton" onClick={openInventory}> <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/></button>
+         <button className="startButton" onClick={openInventory}> <img src={PTCGPLogo} className="logo" alt="PTCGP Helper logo"/></button>
          <h1>PTCGP Helper</h1>
       </div>
    );

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import TCGDex from '@tcgdex/sdk';
 
+import PTCGLogo from './assets/PTCGP_logo.png';
+
 export default function TestPage() {
   const [count, setCount] = useState(0)
   const [card, setCard] = useState<CardData | null>(null);
@@ -62,7 +64,8 @@ export default function TestPage() {
           // function for opening settings
           console.log("Open settings button clicked");
         }}></button>
-        <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/>
+        {/* <img src="../../../desktopIconERApp.png" className="logo" alt="PTCGP Helper logo"/> */}
+        <img src={PTCGLogo} className="logo" alt="PTCGP Helper logo"/>
         <button className="setButton test_button" onClick={getFurretUI}>
           {card ? card.name + "!" : "Click to fetch"}
         </button>
