@@ -13,9 +13,19 @@ export default function InventoryPage() {
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
 
+  function toggleProfile() {
+    if (! document.querySelector(".openProfile")) {
+      document.querySelector(".profileMenuContainer")?.classList.add("openProfile");
+    } else {
+      document.querySelector(".profileMenuContainer")?.classList.remove("openProfile");
+    }
+  }
 
   function openProfile() {
     console.log("Profile button clicked");
+
+    toggleProfile();
+
   }
   function openSet() {
     console.log("Set button clicked");
@@ -77,10 +87,14 @@ export default function InventoryPage() {
       <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
+      <div className="profileMenuContainer"><p>Why does this not displayyyyyyyyyyy?</p></div>
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
+      <div className="setMenuContainer"></div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
+      <div className="viewMenuContainer"></div>
 
 
+      <p>Why does this not displayyy?</p>
 
       <h1>Inventory</h1>
       <p>This is the inventory page.</p>

@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { HashRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+
+// Browser router doesn't work with builds, but Hashrouter seems to require a build every single change to work. 
+//   Now browser router doesn't seem to also work with dev builds *crying*
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+//import { HashRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+
 import InventoryPage from './InventoryPage';
 import StartPage from './StartPage';
 import TestPage from './TestPage';

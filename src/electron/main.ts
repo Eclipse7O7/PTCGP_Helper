@@ -26,8 +26,8 @@ app.on("ready", () => {
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5017");
 
-    //mainWindow.setSize(1200, 600);
-    //mainWindow.webContents.openDevTools();
+    mainWindow.setSize(1200, 600);
+    mainWindow.webContents.openDevTools();
 
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));

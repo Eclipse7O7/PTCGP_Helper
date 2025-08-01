@@ -57,3 +57,20 @@ div .cardPlaceholder {
    margin-top: 10px;
    display: flex; /* Maybe inline-flex? */
 }
+
+
+
+.profileMenuContainer {
+   position: fixed;
+   top: 3rem;
+   left: 10rem;
+   width: 15rem;
+   height: 20rem;
+   background-color: #333;
+   border: 2px solid green;
+   border-radius: 10px;
+}
+
+.openProfile {
+   border: 20px solid red;
+}
