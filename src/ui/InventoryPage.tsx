@@ -71,6 +71,9 @@ export default function InventoryPage() {
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
 
 
+      <p>removing the untracked js files seems to have fixed the hotreloading issue?</p>
+      <p>Will try this in main branch.</p>
+
 
       <h1>Inventory</h1>
       <p>This is the inventory page.</p>

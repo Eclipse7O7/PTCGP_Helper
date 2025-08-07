@@ -3,9 +3,8 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import InventoryPage from './InventoryPage';
-import TestPage from './testPage';
 import StartPage from './StartPage';
-//import TestPage from './TestPage';
+import TestPage from './TestPage';
 
 
 
