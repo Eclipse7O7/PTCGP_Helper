@@ -87,7 +87,7 @@ export default function InventoryPage() {
       <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
-      <div className="profileMenuContainer"><p>Why does this not displayyyyyyyyyyy?</p></div>
+      <div className="profileMenuContainer"><p>Why does this not displayyyyyyy?</p></div>
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
       <div className="setMenuContainer"></div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>

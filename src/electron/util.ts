@@ -1,6 +1,7 @@
 import { ipcMain, WebContents } from "electron";
 
 export function isDev(): boolean {
+  //console.log(process.env.NODE_ENV === 'development' ? "Development mode" : "Production mode");
   return process.env.NODE_ENV === 'development';
 }
 
