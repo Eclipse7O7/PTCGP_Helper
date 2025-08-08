@@ -11,6 +11,7 @@ export default function InventoryPage() {
 
   const [profileIDs, setProfileIDs] = useState<number>(0);
   var [currentProfile, setCurrentProfile] = useState<number | 0>(0);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
  
   async function fetchProfiles() {
@@ -57,6 +58,8 @@ export default function InventoryPage() {
     }
   }
 
+  /* Attempt to use react state to manage profile menu open/close instead of direct DOM manipulation
+
   function openProfile() {
     console.log("Profile button clicked");
     toggleProfile();
@@ -76,6 +79,16 @@ export default function InventoryPage() {
         profileMenuContainer.appendChild(button);
       }
     }
+  }
+  */
+
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! this needs to change to use react state instead of direct DOM manipulation
+  // But idk how rn as it needs to toggle the class of the profile menu container
+  // and I don't know how to do that with react state
+  function openProfile() {
+    setProfileMenuOpen(true);
+    //setProfileMenuOpen((open) => !open);
+    toggleProfile();
   }
 
   function openSet() {
@@ -112,14 +125,13 @@ export default function InventoryPage() {
   });
 
 
-  // Not final functionality - for testing purposes only !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   async function getProfileByIdUI(profileId: number) {
     const profile = await window.appMethods.getProfileById(profileId);
     if (profile) {
       return profile;
     }
   }
+  // Not final functionality
 
   async function changeProfile() {
     const profile = await getProfileByIdUI(currentProfile);
@@ -152,9 +164,13 @@ export default function InventoryPage() {
 
   useEffect(() => {
   console.log("Current profile changed:", currentProfile);
+  changeProfile();
   }, [currentProfile]); // This useEffect only runs when currentProfile changes
 
 
+  useEffect(() => {
+    console.log("Profile menu open state changed:", profileMenuOpen);
+  }, [profileMenuOpen]); // This useEffect only runs when profileMenuOpen changes
 
   return (
     <div className="wholeInventoryPage">
@@ -164,7 +180,17 @@ export default function InventoryPage() {
       <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
-      <div className="profileMenuContainer"><p>This finally displayyys!</p></div>
+      {profileMenuOpen && (
+        <div className="profileMenuContainer">
+          {[...Array(profileIDs)].map((_, i) => (
+            <button key={i} onClick={() => {
+                setCurrentProfile(i)
+              }}>
+              Profile {i}
+            </button>
+          ))}
+        </div>
+      )}
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
       <div className="setMenuContainer"></div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
