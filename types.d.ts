@@ -79,7 +79,7 @@ interface Window {
       getSetById: (setId: string) => Promise<SetData | null>;
       getProfileById: (profileId: number) => Promise<ProfileData | null>;
       getNumOfProfiles: () => Promise<number>;
-      getCurrentProfile: () => Promise<string | null>;
+      getCurrentProfile: () => Promise<number | 0>;
       // Add more methods as needed (remember to add to preload.cts)
    }
 }

@@ -10,28 +10,28 @@ import plusIcon from './assets/plus_whiteish.png';
 export default function InventoryPage() {
 
   const [profileIDs, setProfileIDs] = useState<number>(0);
-  const [currentProfile, setCurrentProfile] = useState<string | null>(null);
+  var [currentProfile, setCurrentProfile] = useState<number | 0>(0);
 
-  // Fetch number of profiles
-  // Find the profiles.json "currentProfile" and set it as the current profile
-
+ 
   async function fetchProfiles() {
     const allProfileIDs = await window.appMethods.getNumOfProfiles();
     setProfileIDs(allProfileIDs);
-    const currentProfile = await window.appMethods.getCurrentProfile();
-    setCurrentProfile(currentProfile);
+    const jsonCurrentProfile = await window.appMethods.getCurrentProfile();
+    setCurrentProfile(jsonCurrentProfile);
   }
-  fetchProfiles();
 
-
-  
-
+  useEffect(() => {
+    console.log("Fetching profiles...");
+    fetchProfiles();
+  }, []); // Fetch profiles on component mount (only once)
 
 
 
   const [currentSet, setSet] = useState<SetData | null>(null);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
+
+
 
   function toggleProfile() {
     if (! document.querySelector(".openProfile")) {
@@ -61,16 +61,35 @@ export default function InventoryPage() {
     console.log("Profile button clicked");
     toggleProfile();
 
+    // for each profile that exists, create a button that will set the current profile to that profile
+    const profileMenuContainer = document.querySelector(".profileMenuContainer");
+    if (profileMenuContainer) {
+      profileMenuContainer.innerHTML = ""; // Clear existing buttons
+      for (let i = 0; i < profileIDs; i++) {
+        const button = document.createElement("button");
+        button.textContent = `Profile ${i}`;
+        button.addEventListener("click", () => {
+          setCurrentProfile(i);
+          //changeProfile();
+          
+        });
+        profileMenuContainer.appendChild(button);
+      }
+    }
   }
+
   function openSet() {
     console.log("Set button clicked");
     toggleSet();
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
+
   function openView() {
     console.log("View button clicked");
     toggleView();
   
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
   document.querySelector(".settingsIcon")?.addEventListener("click", () => {
@@ -102,8 +121,8 @@ export default function InventoryPage() {
     }
   }
 
-  async function func() {
-    const profile = await getProfileByIdUI(1);
+  async function changeProfile() {
+    const profile = await getProfileByIdUI(currentProfile);
     if (!profile) {
       console.error("Profile not found");
       return;
@@ -115,7 +134,10 @@ export default function InventoryPage() {
     var pageContainer = document.querySelector(".inventoryPageContainer");
     if (pageContainer) {
       console.log("\nProfile fetched successfully:", profile, "\n\n");
-      pageContainer.textContent = `Profile: ${profile.name}`;
+      pageContainer.innerHTML = ""; // Clear existing content
+      const profileHeading = document.createElement("h2");
+      profileHeading.textContent = `Profile: ${profile.name}`;
+      pageContainer.appendChild(profileHeading);
       for (const collectionCard of profile.collection) {
         const img = document.createElement("img");
         img.className = "cardImage";
@@ -128,12 +150,14 @@ export default function InventoryPage() {
   }
 
 
-
+  useEffect(() => {
+  console.log("Current profile changed:", currentProfile);
+  }, [currentProfile]); // This useEffect only runs when currentProfile changes
 
 
 
   return (
-    <div>
+    <div className="wholeInventoryPage">
       <img src={settingsIcon} className="settingsIcon" alt="Settings Icon"/>
       <img src={dotIcon} className="dotIcon" alt="Select Cards"/>
       <img src={minusIcon} className="minusIcon" alt="Remove Cards"/>
@@ -152,8 +176,13 @@ export default function InventoryPage() {
         <p>This is the inventory page.</p>
         <p>Here you can manage your card collection.</p>
       </div>
-      <button className="temp" onClick={() => func()}>
+      <button className="temp" onClick={() => changeProfile()}>
         Fetch Profile Test
+      </button>
+      <button className="temp" onClick={() => {
+        console.log(currentProfile);
+      }}>
+        Log Current Profile
       </button>
     </div>
   );

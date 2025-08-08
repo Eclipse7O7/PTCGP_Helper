@@ -183,9 +183,9 @@ export async function getNumOfProfiles(): Promise<number> {
 }
 
 
-export async function getCurrentProfile(): Promise<string | null> {
+export async function getCurrentProfile(): Promise<number | 0> {
    const loggedData = await readProfileJsonFile();
-   return loggedData ? loggedData.currentProfile : null;
+   return loggedData ? loggedData.currentProfile : 0;
 }
 
 async function readProfileJsonFile(): Promise<any> {

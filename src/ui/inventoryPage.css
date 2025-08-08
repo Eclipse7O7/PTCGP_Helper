@@ -35,19 +35,103 @@ button {
    left: 27.5rem;
 }
 
+/* These icon style rules are in inventoryPage.css if they are going to be used differently in the trading page */
+
+.settingsIcon {
+	width: 3em;
+	height: 3em;
+	position: fixed;
+	top: 1rem;
+	left: 1rem;
+	cursor: pointer;
+}
+
+.settingsIcon:hover {
+	filter: drop-shadow(0 0 1em #b3b3b3);
+}
+
+.dotIcon {
+	width: 3em;
+	height: 3em;
+	position: fixed;
+	top: 6rem;
+	left: 1rem;
+	cursor: pointer;
+}
+
+.dotIcon:hover {
+	filter: drop-shadow(0 0 1em #ffffff);
+}
+
+.minusIcon {
+	width: 3em;
+	height: 3em;
+	position: fixed;
+	top: 10rem;
+	left: 1rem;
+	cursor: pointer;
+}
+
+.minusIcon:hover {
+	filter: drop-shadow(0 0 1em #ffffff);
+}
+
+.plusIcon {
+	width: 3em;
+	height: 3em;
+	position: fixed;
+	top: 14rem;
+	left: 1rem;
+	cursor: pointer;
+}
+
+.plusIcon:hover {
+	filter: drop-shadow(0 0 1em #ffffff);
+}
 
 .profileButton:hover, .setButton:hover, .viewButton:hover {
    filter: drop-shadow(0 0 1em #d0d0d0);
 }
 
 
+
+.temp {
+   margin-top: 80%;
+}
+
+.inventoryPageContainer {
+   z-index: 1;
+   position: fixed;
+   top: 6rem;
+   width: 70%; /*width 100% goes off right hand side?*/
+   max-height: 100vh;
+   border: 0.5px solid white;
+   overflow-y: scroll;
+   
+   
+}
+
+.inventoryPageContainer h2 {
+   text-align: center;
+   margin: 1rem 0;
+}
+
 /* Needs adjusting !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 .cardImage {
    width: 80px;
    margin-top: 10px;
-   display: flex; /* Maybe inline-flex? */
+   display: inline-flex; /* Maybe inline-flex? */
    border-radius: 5%;
+   margin: 0 2%;
+   }
+
+/* Maybe instead just add a dark transparent overlay on cards that aren't in collection */
+/*
+.notOwned {
+   background: rgba(0,0,0,0.5);
+
 }
+*/
 
 div .cardPlaceholder {
    background: none;
@@ -55,13 +139,15 @@ div .cardPlaceholder {
    border-radius: 5%;
    width: 80px;
    margin-top: 10px;
-   display: flex; /* Maybe inline-flex? */
+   display: inline-flex; /* Maybe inline-flex? */
+   margin: 0 2%;
 }
 
 
 
 .profileMenuContainer {
    position: fixed;
+   z-index: 5;
    top: 4rem;
    left: 10rem;
    width: 8.7rem;
@@ -73,7 +159,8 @@ div .cardPlaceholder {
 }
 .openProfile {
    border: 2px solid aqua;
-   height: 15rem;
+   height: auto;
+   padding: 0.5rem 0;
 
 }
 

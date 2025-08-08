@@ -1,9 +1,9 @@
 {
-   "currentProfile": "default",
+   "currentProfile": 0,
    "profiles": [
       {
          "id": 0,
-         "name": "Default Profile",
+         "name": "default",
          "collection": [
             { 
             "card": {
@@ -12,6 +12,30 @@
                "image":"https://assets.tcgdex.net/en/tcgp/A1/001/low.png"
                },
             "quantity": 3
+            },
+            {
+            "card": {
+               "id": "A1-002",
+               "name": "Ivysaur",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               },
+            "quantity": 2
+            },
+            {
+            "card": {
+               "id": "A1-002",
+               "name": "Ivysaur",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               },
+            "quantity": 2
+            },
+            {
+            "card": {
+               "id": "A1-002",
+               "name": "Ivysaur",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               },
+            "quantity": 2
             },
             {
             "card": {
