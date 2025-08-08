@@ -169,8 +169,23 @@ export async function getProfileById(profileId: number): Promise<any> { //Profil
    //return loggedData.profiles[profileId];
    //Might be a bit more robust to use find() instead of indexing by the ID
    return loggedData ? loggedData.profiles.find((profile: any) => profile.id === profileId) : null;
+}
 
 
+export async function getNumOfProfiles(): Promise<number> {
+   const loggedData = await readProfileJsonFile();
+   if (loggedData) {
+      return loggedData.profiles.length;
+   } else {
+      console.error("No profiles found or error reading profiles.json");
+      return 0;
+   }
+}
+
+
+export async function getCurrentProfile(): Promise<string | null> {
+   const loggedData = await readProfileJsonFile();
+   return loggedData ? loggedData.currentProfile : null;
 }
 
 async function readProfileJsonFile(): Promise<any> {

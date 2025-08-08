@@ -9,6 +9,26 @@ import plusIcon from './assets/plus_whiteish.png';
 
 export default function InventoryPage() {
 
+  const [profileIDs, setProfileIDs] = useState<number>(0);
+  const [currentProfile, setCurrentProfile] = useState<string | null>(null);
+
+  // Fetch number of profiles
+  // Find the profiles.json "currentProfile" and set it as the current profile
+
+  async function fetchProfiles() {
+    const allProfileIDs = await window.appMethods.getNumOfProfiles();
+    setProfileIDs(allProfileIDs);
+    const currentProfile = await window.appMethods.getCurrentProfile();
+    setCurrentProfile(currentProfile);
+  }
+  fetchProfiles();
+
+
+  
+
+
+
+
   const [currentSet, setSet] = useState<SetData | null>(null);
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
@@ -78,18 +98,32 @@ export default function InventoryPage() {
   async function getProfileByIdUI(profileId: number) {
     const profile = await window.appMethods.getProfileById(profileId);
     if (profile) {
-      // Display profile information in the UI
-      var tempButton = document.querySelector(".temp");
-      if (tempButton) {
-        console.log("\nProfile fetched successfully:", profile, "\n\n");
-        tempButton.textContent = `Profile: ${profile.name}`;
-        tempButton.after(document.createElement("br"));
+      return profile;
+    }
+  }
+
+  async function func() {
+    const profile = await getProfileByIdUI(1);
+    if (!profile) {
+      console.error("Profile not found");
+      return;
+    }
+    
+    // Log the profile to the console
+    console.log("Profile fetched successfully:", profile);
+    // Display profile information in the UI
+    var pageContainer = document.querySelector(".inventoryPageContainer");
+    if (pageContainer) {
+      console.log("\nProfile fetched successfully:", profile, "\n\n");
+      pageContainer.textContent = `Profile: ${profile.name}`;
+      for (const collectionCard of profile.collection) {
         const img = document.createElement("img");
         img.className = "cardImage";
-        img.src = profile.collection[0].card.image;
-        img.alt = profile.collection[0].card.name;
-        tempButton.after(img);
+        img.src = collectionCard.card.image;
+        img.alt = collectionCard.card.name;
+        pageContainer.appendChild(img);
       }
+      pageContainer.appendChild(document.createElement("br"));
     }
   }
 
@@ -113,12 +147,12 @@ export default function InventoryPage() {
       <div className="viewMenuContainer"></div>
 
 
-      
-
-      <h1>Inventory</h1>
-      <p>This is the inventory page.</p>
-      <p>Here you can manage your card collection.</p>
-      <button className="temp" onClick={() => getProfileByIdUI(0)}>
+      <div className="inventoryPageContainer">
+        <h1>Inventory</h1>
+        <p>This is the inventory page.</p>
+        <p>Here you can manage your card collection.</p>
+      </div>
+      <button className="temp" onClick={() => func()}>
         Fetch Profile Test
       </button>
     </div>

@@ -95,6 +95,22 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
          return null;
       }
    },
+   getNumOfProfiles: async () => {
+      try {
+         return await electron.ipcRenderer.invoke("getNumOfProfiles");
+      } catch (error) {
+         console.error("Error fetching number of profiles:", error);
+         return 0;
+      }
+   },
+   getCurrentProfile: async () => {
+      try {
+         return await electron.ipcRenderer.invoke("getCurrentProfile");
+      } catch (error) {
+         console.error("Error fetching current profile:", error);
+         return null;
+      }
+   },
    // Add more methods as needed (remember to add to types.d.ts)
 });
 
