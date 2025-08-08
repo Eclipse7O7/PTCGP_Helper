@@ -21,18 +21,37 @@ export default function InventoryPage() {
     }
   }
 
+  function toggleSet() {
+    if (! document.querySelector(".openSet")) {
+      document.querySelector(".setMenuContainer")?.classList.add("openSet");
+    } else {
+      document.querySelector(".setMenuContainer")?.classList.remove("openSet");
+    }
+  }
+
+  function toggleView() {
+    if (! document.querySelector(".openView")) {
+      document.querySelector(".viewMenuContainer")?.classList.add("openView");
+    } else {
+      document.querySelector(".viewMenuContainer")?.classList.remove("openView");
+    }
+  }
+
   function openProfile() {
     console.log("Profile button clicked");
-
     toggleProfile();
 
   }
   function openSet() {
     console.log("Set button clicked");
+    toggleSet();
+
   }
   function openView() {
     console.log("View button clicked");
-  }    
+    toggleView();
+  
+  }
 
   document.querySelector(".settingsIcon")?.addEventListener("click", () => {
     console.log("Settings icon clicked");
@@ -87,14 +106,14 @@ export default function InventoryPage() {
       <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
-      <div className="profileMenuContainer"><p>Why does this not displayyyyyyy?</p></div>
+      <div className="profileMenuContainer"><p>This finally displayyys!</p></div>
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
       <div className="setMenuContainer"></div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
       <div className="viewMenuContainer"></div>
 
 
-      <p>Why does this not displayyy?</p>
+      
 
       <h1>Inventory</h1>
       <p>This is the inventory page.</p>

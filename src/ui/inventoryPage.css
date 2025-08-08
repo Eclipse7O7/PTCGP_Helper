@@ -62,15 +62,49 @@ div .cardPlaceholder {
 
 .profileMenuContainer {
    position: fixed;
-   top: 3rem;
+   top: 4rem;
    left: 10rem;
-   width: 15rem;
-   height: 20rem;
+   width: 8.7rem;
+   height: 0rem;
+   overflow: hidden;
    background-color: #333;
-   border: 2px solid green;
+   border: none;
    border-radius: 10px;
 }
-
 .openProfile {
-   border: 20px solid red;
+   border: 2px solid aqua;
+   height: 15rem;
+
+}
+
+.setMenuContainer {
+   position: fixed;
+   top: 4rem;
+   left: 20rem;
+   width: 6.3rem;
+   height: 0rem;
+   overflow: hidden;
+   background-color: #333;
+   border: none;
+   border-radius: 10px;
+}
+.openSet {
+   border: 2px solid aqua;
+   height: 15rem;
+}
+
+.viewMenuContainer {
+   position: fixed;
+   top: 4rem;
+   left: 27.5rem;
+   width: 7.4rem;
+   height: 0rem;
+   overflow: hidden;
+   background-color: #333;
+   border: none;
+   border-radius: 10px;
+}
+.openView {
+   border: 2px solid aqua;
+   height: 15rem;
 }
