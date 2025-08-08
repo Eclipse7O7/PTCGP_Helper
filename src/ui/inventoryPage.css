@@ -97,6 +97,7 @@ button {
 
 .temp {
    margin-top: 80%;
+   z-index: 5;
 }
 
 .inventoryPageContainer {
@@ -166,6 +167,7 @@ div .cardPlaceholder {
 
 .setMenuContainer {
    position: fixed;
+   z-index: 5;
    top: 4rem;
    left: 20rem;
    width: 6.3rem;
@@ -182,6 +184,7 @@ div .cardPlaceholder {
 
 .viewMenuContainer {
    position: fixed;
+   z-index: 5;
    top: 4rem;
    left: 27.5rem;
    width: 7.4rem;

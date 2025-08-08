@@ -81,8 +81,8 @@ export default function InventoryPage() {
     }
   }
   */
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! this needs to change to use react state instead of direct DOM manipulation
+ 
+ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! this needs to change to use react state instead of direct DOM manipulation
   // But idk how rn as it needs to toggle the class of the profile menu container
   // and I don't know how to do that with react state
   function openProfile() {
@@ -91,9 +91,16 @@ export default function InventoryPage() {
     toggleProfile();
   }
 
+  // useEffect(() => {
+  //   console.log("Profile menu open state changed:", profileMenuOpen);
+  // }, [profileMenuOpen]); // This useEffect only runs when profileMenuOpen changes
+
+
   function openSet() {
     console.log("Set button clicked");
     toggleSet();
+    // setSetMenuOpen(true);
+    // setSetMenuOpen((open) => !open);
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
@@ -101,6 +108,8 @@ export default function InventoryPage() {
   function openView() {
     console.log("View button clicked");
     toggleView();
+    // setViewMenuOpen(true);
+    // setViewMenuOpen((open) => !open);
   
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
@@ -131,7 +140,8 @@ export default function InventoryPage() {
       return profile;
     }
   }
-  // Not final functionality
+
+  // Not final functionality !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   async function changeProfile() {
     const profile = await getProfileByIdUI(currentProfile);
@@ -157,6 +167,9 @@ export default function InventoryPage() {
         img.alt = collectionCard.card.name;
         pageContainer.appendChild(img);
       }
+      const tempP = document.createElement("p");
+      tempP.textContent = "This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline stylethat causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows.";
+      pageContainer.appendChild(tempP);
       pageContainer.appendChild(document.createElement("br"));
     }
   }
@@ -168,9 +181,7 @@ export default function InventoryPage() {
   }, [currentProfile]); // This useEffect only runs when currentProfile changes
 
 
-  useEffect(() => {
-    console.log("Profile menu open state changed:", profileMenuOpen);
-  }, [profileMenuOpen]); // This useEffect only runs when profileMenuOpen changes
+
 
   return (
     <div className="wholeInventoryPage">
