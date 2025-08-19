@@ -12,6 +12,8 @@ export default function InventoryPage() {
   const [profileIDs, setProfileIDs] = useState<number>(0);
   var [currentProfile, setCurrentProfile] = useState<number | 0>(0);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [setMenuOpen, setSetMenuOpen] = useState(false);
+  const [viewMenuOpen, setViewMenuOpen] = useState(false);
 
  
   async function fetchProfiles() {
@@ -32,33 +34,22 @@ export default function InventoryPage() {
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
 
+  useEffect(() => {
+    console.log("Fetching sets...");
+    window.appMethods.getSets().then((sets) => {
+      if (sets) {
+        console.log("Sets fetched successfully:");
+        console.log(sets);
+      } else {
+        console.error("Failed to fetch sets.");
+        console.log(sets)
+      }
+    });
+  }, []); // Fetch sets on component mount (only once)
+  
+  
 
-
-  function toggleProfile() {
-    if (! document.querySelector(".openProfile")) {
-      document.querySelector(".profileMenuContainer")?.classList.add("openProfile");
-    } else {
-      document.querySelector(".profileMenuContainer")?.classList.remove("openProfile");
-    }
-  }
-
-  function toggleSet() {
-    if (! document.querySelector(".openSet")) {
-      document.querySelector(".setMenuContainer")?.classList.add("openSet");
-    } else {
-      document.querySelector(".setMenuContainer")?.classList.remove("openSet");
-    }
-  }
-
-  function toggleView() {
-    if (! document.querySelector(".openView")) {
-      document.querySelector(".viewMenuContainer")?.classList.add("openView");
-    } else {
-      document.querySelector(".viewMenuContainer")?.classList.remove("openView");
-    }
-  }
-
-  /* Attempt to use react state to manage profile menu open/close instead of direct DOM manipulation
+  /* Now using react state to manage profile menu open/close instead of direct DOM manipulation
 
   function openProfile() {
     console.log("Profile button clicked");
@@ -81,14 +72,10 @@ export default function InventoryPage() {
     }
   }
   */
- 
- // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! this needs to change to use react state instead of direct DOM manipulation
-  // But idk how rn as it needs to toggle the class of the profile menu container
-  // and I don't know how to do that with react state
+
+
   function openProfile() {
-    setProfileMenuOpen(true);
-    //setProfileMenuOpen((open) => !open);
-    toggleProfile();
+    setProfileMenuOpen((open) => !open);
   }
 
   // useEffect(() => {
@@ -97,19 +84,13 @@ export default function InventoryPage() {
 
 
   function openSet() {
-    console.log("Set button clicked");
-    toggleSet();
-    // setSetMenuOpen(true);
-    // setSetMenuOpen((open) => !open);
+    setSetMenuOpen((open) => !open);
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
   function openView() {
-    console.log("View button clicked");
-    toggleView();
-    // setViewMenuOpen(true);
-    // setViewMenuOpen((open) => !open);
+    setViewMenuOpen((open) => !open);
   
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
@@ -191,8 +172,7 @@ export default function InventoryPage() {
       <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
-      {profileMenuOpen && (
-        <div className="profileMenuContainer">
+      <div className={`profileMenuContainer ${profileMenuOpen ? " openProfile" : ""}`}>
           {[...Array(profileIDs)].map((_, i) => (
             <button key={i} onClick={() => {
                 setCurrentProfile(i)
@@ -200,13 +180,16 @@ export default function InventoryPage() {
               Profile {i}
             </button>
           ))}
-        </div>
-      )}
+      </div>
+      
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
-      <div className="setMenuContainer"></div>
+      <div className={`setMenuContainer${setMenuOpen ? " openSet" : ""}`}>
+        {/* set menu content here */}
+      </div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
-      <div className="viewMenuContainer"></div>
-
+      <div className={`viewMenuContainer${viewMenuOpen ? " openView" : ""}`}>
+        {/* view menu content here */}
+      </div>
 
       <div className="inventoryPageContainer">
         <h1>Inventory</h1>

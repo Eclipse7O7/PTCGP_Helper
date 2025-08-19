@@ -5,7 +5,16 @@ import path from "path";
 import { ipcMainHandle, isDev } from "./util.js";
 import { getStaticData, pollRescources } from "./rescourceManagerTest.js";
 import { getPreloadedPath } from "./pathresolver.js";
-import { openSettings, getCardById, getSetById, fetchFurret, getProfileById, getNumOfProfiles, getCurrentProfile } from "./tcgTrackerTest.js";
+import { 
+  openSettings,
+  getCardById,
+  getSetById,
+  fetchFurret,
+  getProfileById,
+  getNumOfProfiles,
+  getCurrentProfile,
+  getSets 
+  } from "./tcgTrackerTest.js";
 
 //type test = string;
 
@@ -26,8 +35,8 @@ app.on("ready", () => {
   if (isDev()) {
     mainWindow.loadURL("http://localhost:5017");
 
-    //mainWindow.setSize(1200, 600);
-    //mainWindow.webContents.openDevTools();
+    mainWindow.setSize(1200, 600);
+    mainWindow.webContents.openDevTools();
 
   } else {
     mainWindow.loadFile(path.join(app.getAppPath(), "/dist-react/index.html"));
@@ -93,6 +102,10 @@ ipcMain.handle("getNumOfProfiles", async () => {
 
 ipcMain.handle("getCurrentProfile", async () => {
   return await getCurrentProfile();
+});
+
+ipcMain.handle("getSets", async () => {
+  return await getSets();
 });
 
 

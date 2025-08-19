@@ -1,6 +1,6 @@
 //import { getStaticData } from "./rescourceManagerTest";
 
-import { openSettings, changeProfile, changeSet, changeView, fetchFurret, getCardById, getSetById } from "./tcgTrackerTest";
+import { openSettings, changeProfile, changeSet, changeView, fetchFurret, getCardById, getSetById, getSets } from "./tcgTrackerTest";
 
 const electron = require("electron");
 
@@ -108,6 +108,14 @@ electron.contextBridge.exposeInMainWorld("appMethods", {
          return await electron.ipcRenderer.invoke("getCurrentProfile");
       } catch (error) {
          console.error("Error fetching current profile:", error);
+         return null;
+      }
+   },
+   getSets: async () => {
+      try {
+         return await electron.ipcRenderer.invoke("getSets");
+      } catch (error) {
+         console.error("Error fetching sets:", error);
          return null;
       }
    },
