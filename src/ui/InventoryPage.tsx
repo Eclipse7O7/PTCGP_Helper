@@ -6,6 +6,15 @@ import dotIcon from './assets/dot_whiteish.png';
 import minusIcon from './assets/minus_whiteish.png';
 import plusIcon from './assets/plus_whiteish.png';
 
+// 'Importing' the InventoryOptions enum as ones in types.d.ts only exist at compile-time not runtime
+const InventoryOptions = {
+  SELECT_CARD: "SELECT_CARD",
+  REMOVE_CARD: "REMOVE_CARD",
+  ADD_CARD: "ADD_CARD",
+} as const;
+type InventoryOptions = (typeof InventoryOptions)[keyof typeof InventoryOptions];
+
+
 
 export default function InventoryPage() {
 
@@ -14,21 +23,28 @@ export default function InventoryPage() {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [setMenuOpen, setSetMenuOpen] = useState(false);
   const [viewMenuOpen, setViewMenuOpen] = useState(false);
+  const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
 
- 
+
   async function fetchProfiles() {
     const allProfileIDs = await window.appMethods.getNumOfProfiles();
     setProfileIDs(allProfileIDs);
     const jsonCurrentProfile = await window.appMethods.getCurrentProfile();
     setCurrentProfile(jsonCurrentProfile);
   }
-
+  
   useEffect(() => {
     console.log("Fetching profiles...");
     fetchProfiles();
   }, []); // Fetch profiles on component mount (only once)
-
-
+  
+  async function getProfileByIdUI(profileId: number) {
+    const profile = await window.appMethods.getProfileById(profileId);
+    if (profile) {
+      return profile;
+    }
+  }
+  
 
   const [currentSet, setSet] = useState<SetData | null>(null);
   const [setInfoList, setSetInfoList] = useState<any[]>([]);
@@ -65,21 +81,18 @@ export default function InventoryPage() {
   }, [setInfoList]); // This useEffect runs whenever setInfoList changes -> but only
   // want it to run the prepending once, so using a ref to track that
 
-
   async function prependSetInfoList() {
-    
     const newSetInfoList = [...setInfoList];
-    newSetInfoList.unshift({ id: "All Sets", name: "All Sets", cardCount: -1 });
-    
+    newSetInfoList.unshift({ id: "All", name: "All Sets", cardCount: -1 });
     console.log("Prepending 'All Sets' to setInfoList");
-    console.log(newSetInfoList);
-    
+    //console.log(newSetInfoList);
     setSetInfoList(newSetInfoList);
   }
-
-
-
-
+  
+  
+  
+  
+  
   
 
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
@@ -116,15 +129,9 @@ export default function InventoryPage() {
     setProfileMenuOpen((open) => !open);
   }
 
-  // useEffect(() => {
-  //   console.log("Profile menu open state changed:", profileMenuOpen);
-  // }, [profileMenuOpen]); // This useEffect only runs when profileMenuOpen changes
-
-
   function openSet() {
     setSetMenuOpen((open) => !open);
     console.log(setInfoList);
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
   function openView() {
@@ -133,34 +140,34 @@ export default function InventoryPage() {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
-  document.querySelector(".settingsIcon")?.addEventListener("click", () => {
+  
+
+  function openSettings() {
     console.log("Settings icon clicked");
-  });
-  document.querySelector(".dotIcon")?.addEventListener("click", () => {
+    setSettingsMenuOpen((open) => !open);
+  }
+  function selectCards() {
     // Toggle the inventory option for selecting cards if not already selected
-    inventoryOption === InventoryOptions.SELECT_CARD ? setInventoryOption(null) : setInventoryOption(InventoryOptions.SELECT_CARD);
+    (inventoryOption === InventoryOptions.SELECT_CARD) ? setInventoryOption(null) : setInventoryOption(InventoryOptions.SELECT_CARD);
     console.log("Select Cards icon clicked");
-  });
-  document.querySelector(".minusIcon")?.addEventListener("click", () => {
+  }
+  function removeCards() {
     // Toggle the inventory option for removing cards if not already selected
-    inventoryOption === InventoryOptions.REMOVE_CARD ? setInventoryOption(null) : setInventoryOption(InventoryOptions.REMOVE_CARD);
+    (inventoryOption === InventoryOptions.REMOVE_CARD) ? setInventoryOption(null) : setInventoryOption(InventoryOptions.REMOVE_CARD);
     console.log("Remove Cards icon clicked");
-  });  
-  document.querySelector(".plusIcon")?.addEventListener("click", () => {
+  }
+  function addCards() {
     // Toggle the inventory option for adding cards if not already selected
-    inventoryOption === InventoryOptions.ADD_CARD ? setInventoryOption(null) : setInventoryOption(InventoryOptions.ADD_CARD);
+    (inventoryOption === InventoryOptions.ADD_CARD) ? setInventoryOption(null) : setInventoryOption(InventoryOptions.ADD_CARD);
     console.log("Add Cards icon clicked");
-  });
-
-
-  async function getProfileByIdUI(profileId: number) {
-    const profile = await window.appMethods.getProfileById(profileId);
-    if (profile) {
-      return profile;
-    }
   }
 
+
+
+
+
   // Not final functionality !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // Also uses DOM manipulation instead of React state, which is not ideal
 
   async function changeProfile() {
     const profile = await getProfileByIdUI(currentProfile);
@@ -204,16 +211,26 @@ export default function InventoryPage() {
 
   return (
     <div className="wholeInventoryPage">
-      <img src={settingsIcon} className="settingsIcon" alt="Settings Icon"/>
-      <img src={dotIcon} className="dotIcon" alt="Select Cards"/>
-      <img src={minusIcon} className="minusIcon" alt="Remove Cards"/>
-      <img src={plusIcon} className="plusIcon" alt="Add Cards"/>
+      <button className="settingsIconButton" onClick={openSettings}><img src={settingsIcon} className="settingsIcon" alt="Settings Icon"/></button>
+      <button className="dotIconButton" onClick={selectCards}><img src={dotIcon} className="dotIcon" alt="Select Cards"/></button>
+      <button className="minusIconButton" onClick={removeCards}><img src={minusIcon} className="minusIcon" alt="Remove Cards"/></button>
+      <button className="plusIconButton" onClick={addCards}><img src={plusIcon} className="plusIcon" alt="Add Cards"/></button>
+
+      <div className={`settingsContainer${settingsMenuOpen ? " openSettings" : ""}`}>
+        {
+          // React State based Settings menu content here
+        }
+      </div>
+
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
-      <div className={`profileMenuContainer ${profileMenuOpen ? " openProfile" : ""}`}>
+      <div className={`profileMenuContainer${profileMenuOpen ? " openProfile" : ""}`}>
           {[...Array(profileIDs)].map((_, i) => (
             <button key={i} onClick={() => {
                 setCurrentProfile(i)
+                // !!!!!!!!!!!!!!!!!!!!!!!!!
+                // will need to make this also set the inventoryPageContainer to the profile's collection
+                //think currently this is changed in 
               }}>
               Profile {i}
             </button>
@@ -225,6 +242,9 @@ export default function InventoryPage() {
         {[...Array(setInfoList.length)].map((_, i) => (
             <button key={i} onClick={() => {
                 console.log("Set button clicked for set:", setInfoList[i].name);
+                // !!!!!!!!!!!!!!!!!!!!!!!!!
+                // will need to make this also set the inventoryPageContainer to the set's cards,
+                //  using the currently selected profile's cards
               }}>
               {setInfoList[i].id}
             </button>

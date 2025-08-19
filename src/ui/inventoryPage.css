@@ -226,3 +226,24 @@ div .cardPlaceholder {
    padding-left:5%;
    padding-right:5%;
 }
+
+
+.settingsContainer {
+   position: fixed;
+   z-index: 5;
+   top: 5rem;
+   left: 1.2rem;
+   width: 10rem;
+   height: 0rem;
+   overflow: hidden;
+   background-color: #333;
+   border: none;
+   border-radius: 10px;
+   overflow-y: scroll;
+   scrollbar-width: thin; /* For Firefox */
+   scrollbar-color: aqua transparent; /* For Firefox */
+}
+.openSettings {
+   border: 2px solid aqua;
+   height: 18rem;
+}
