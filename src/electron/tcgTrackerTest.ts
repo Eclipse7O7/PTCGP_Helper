@@ -167,10 +167,10 @@ async function readProfileJsonFile(): Promise<any> {
 // Can't just return sets or sets.sets as they are not serializable
 // So need to manually return an object containing the bits i need
 
-export async function getSets(): Promise<any | null> {
+export async function getSetsInfo(): Promise<any | null> {
    try {
       const sets = await tcgdex.serie.get('tcgp');
-      console.log("Fetching ptcgp sets...");
+      console.log("Fetching ptcgp sets info...");
       if (sets) {
          /*
          //console.log(sets.sets);
@@ -180,18 +180,18 @@ export async function getSets(): Promise<any | null> {
             console.log(`ID: ${set.id}, Name: ${set.name}, Card Count: ${set.cardCount}`);
          }
          */
-         console.log("Sets fetched successfully.");
+         console.log("Sets info fetched successfully.");
          return JSON.stringify(sets.sets.map((set: any) => ({
             id: set.id,
             name: set.name,
             cardCount: set.cardCount
          })));
       }
-      console.error("Failed to fetch sets. Returning null.");
+      console.error("Failed to fetch sets info. Returning null.");
       return null;
 
    } catch (error) {
-      console.error('Error fetching sets:', error);
+      console.error('Error fetching sets info:', error);
       return null;
    }
 }

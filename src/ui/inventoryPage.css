@@ -96,7 +96,7 @@ button {
 
 
 .temp {
-   margin-top: 120%;
+   margin-top: 150%;
    z-index: 5;
 }
 
@@ -104,6 +104,7 @@ button {
    z-index: 1;
    position: fixed;
    top: 6rem;
+   left: 7rem;
    width: 70%; /*width 100% goes off right hand side?*/
    height: 70%;
    max-height: 100vh;
@@ -158,13 +159,21 @@ div .cardPlaceholder {
    background-color: #333;
    border: none;
    border-radius: 10px;
+   overflow-y: scroll;
+   scrollbar-width: thin; /* For Firefox */
+   scrollbar-color: aqua transparent; /* For Firefox */
 }
 .openProfile {
    border: 2px solid aqua;
    height: auto;
    padding: 0.5rem 0;
-
 }
+.profileMenuContainer button {
+   width:80%;
+   padding-left:5%;
+   padding-right:5%;
+}
+
 
 .setMenuContainer {
    position: fixed;
@@ -177,11 +186,21 @@ div .cardPlaceholder {
    background-color: #333;
    border: none;
    border-radius: 10px;
+   overflow-y: scroll;
+   scrollbar-width: thin; /* For Firefox */
+   scrollbar-color: aqua transparent; /* For Firefox */
 }
 .openSet {
    border: 2px solid aqua;
-   height: 15rem;
+   height: 12rem;
 }
+.setMenuContainer button {
+   width:80%;
+   padding-left:5%;
+   padding-right:5%;
+}
+
+
 
 .viewMenuContainer {
    position: fixed;
@@ -194,8 +213,16 @@ div .cardPlaceholder {
    background-color: #333;
    border: none;
    border-radius: 10px;
+   overflow-y: scroll;
+   scrollbar-width: thin; /* For Firefox */
+   scrollbar-color: aqua transparent; /* For Firefox */
 }
 .openView {
    border: 2px solid aqua;
    height: 5rem;
+}
+.viewMenuContainer button {
+   width:80%;
+   padding-left:5%;
+   padding-right:5%;
 }

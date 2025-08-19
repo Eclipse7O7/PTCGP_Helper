@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './inventoryPage.css';
 
 import settingsIcon from './assets/settings_cog_whiteish.png';
@@ -31,23 +31,61 @@ export default function InventoryPage() {
 
 
   const [currentSet, setSet] = useState<SetData | null>(null);
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
+  const [setInfoList, setSetInfoList] = useState<any[]>([]);
+
+  const prependRunRef = useRef(false);
+  
 
   useEffect(() => {
-    console.log("Fetching sets...");
-    window.appMethods.getSets().then((sets) => {
+    console.log("Fetching sets info...");
+    window.appMethods.getSetsInfo().then((sets) => {
       if (sets) {
-        console.log("Sets fetched successfully:");
+        console.log("Sets info fetched successfully:");
         console.log(sets);
+        setSetInfoList(JSON.parse(sets));
+        // This doesn't log as the variable is not updated immediately I think?
+        //console.log(setInfoList);
+        prependRunRef.current = true;
       } else {
-        console.error("Failed to fetch sets.");
-        console.log(sets)
+        console.error("Failed to fetch sets info.");
+        //console.log(sets)
       }
     });
   }, []); // Fetch sets on component mount (only once)
   
+
+
+  useEffect(() => {
+    console.log("Set info list updated");
+    if (prependRunRef.current) {
+      prependSetInfoList();
+      prependRunRef.current = false; // Reset the ref to prevent multiple prepends
+    }
+
+  }, [setInfoList]); // This useEffect runs whenever setInfoList changes -> but only
+  // want it to run the prepending once, so using a ref to track that
+
+
+  async function prependSetInfoList() {
+    
+    const newSetInfoList = [...setInfoList];
+    newSetInfoList.unshift({ id: "All Sets", name: "All Sets", cardCount: -1 });
+    
+    console.log("Prepending 'All Sets' to setInfoList");
+    console.log(newSetInfoList);
+    
+    setSetInfoList(newSetInfoList);
+  }
+
+
+
+
   
+
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
   /* Now using react state to manage profile menu open/close instead of direct DOM manipulation
 
@@ -85,7 +123,7 @@ export default function InventoryPage() {
 
   function openSet() {
     setSetMenuOpen((open) => !open);
-
+    console.log(setInfoList);
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
@@ -184,7 +222,13 @@ export default function InventoryPage() {
       
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
       <div className={`setMenuContainer${setMenuOpen ? " openSet" : ""}`}>
-        {/* set menu content here */}
+        {[...Array(setInfoList.length)].map((_, i) => (
+            <button key={i} onClick={() => {
+                console.log("Set button clicked for set:", setInfoList[i].name);
+              }}>
+              {setInfoList[i].id}
+            </button>
+          ))}
       </div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
       <div className={`viewMenuContainer${viewMenuOpen ? " openView" : ""}`}>

@@ -80,7 +80,7 @@ interface Window {
       getProfileById: (profileId: number) => Promise<ProfileData | null>;
       getNumOfProfiles: () => Promise<number>;
       getCurrentProfile: () => Promise<number | 0>;
-      getSets: () => Promise<any | null>;
+      getSetsInfo: () => Promise<any | null>;
       // Add more methods as needed (remember to add to preload.cts)
    }
 }

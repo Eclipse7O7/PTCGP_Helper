@@ -13,8 +13,8 @@ import {
   getProfileById,
   getNumOfProfiles,
   getCurrentProfile,
-  getSets 
-  } from "./tcgTrackerTest.js";
+  getSetsInfo 
+} from "./tcgTrackerTest.js";
 
 //type test = string;
 
@@ -104,8 +104,8 @@ ipcMain.handle("getCurrentProfile", async () => {
   return await getCurrentProfile();
 });
 
-ipcMain.handle("getSets", async () => {
-  return await getSets();
+ipcMain.handle("getSetsInfo", async () => {
+  return await getSetsInfo();
 });
 
 
