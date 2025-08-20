@@ -219,6 +219,16 @@ export default function InventoryPage() {
       <div className={`settingsContainer${settingsMenuOpen ? " openSettings" : ""}`}>
         {
           // React State based Settings menu content here
+          <>
+            <div className="settingItem">
+              <input type="checkbox" id="set1" name="set1" value="set1" />
+              <label htmlFor="set1">Show Empty Card Slots</label>
+            </div>
+            <div className="settingItem">
+              <input type="checkbox" id="set2" name="set2" value="set2" />
+              <label htmlFor="set2">Display Collection In Order</label>
+            </div>
+          </>
         }
       </div>
 

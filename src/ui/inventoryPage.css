@@ -45,6 +45,11 @@ button {
 	left: 1rem;
 	cursor: pointer;
 }
+.settingsIconButton, .dotIconButton, .minusIconButton, .plusIconButton {
+   background-color: transparent;
+   border: none;
+   padding: 0;
+}
 
 .settingsIcon:hover {
 	filter: drop-shadow(0 0 1em #b3b3b3);
@@ -92,6 +97,11 @@ button {
 .profileButton:hover, .setButton:hover, .viewButton:hover {
    filter: drop-shadow(0 0 1em #d0d0d0);
 }
+
+
+
+
+
 
 
 
@@ -242,8 +252,56 @@ div .cardPlaceholder {
    overflow-y: scroll;
    scrollbar-width: thin; /* For Firefox */
    scrollbar-color: aqua transparent; /* For Firefox */
+   font-size: 0.7rem;
 }
 .openSettings {
    border: 2px solid aqua;
    height: 18rem;
+}
+
+.settingItem {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0.5rem 0.5rem;
+   border-bottom: 1px solid #444;
+}
+.settingItem label {
+   margin-left: 0.5rem;
+}
+.settingItem input[type="checkbox"] {
+   appearance: none;
+   position: relative;
+   background-color: white;
+   border: 4px solid white;
+   border-radius: 5px;
+   height: 0.8rem;
+   width: 3rem;
+   min-width: 3rem;
+   
+}
+.settingItem input[type="checkbox"]::before {
+   background-color: #000;
+   border: 0.1rem solid #444;
+   height: 1rem;
+   width: 1rem;
+   position: absolute;
+   content: "";
+   border-radius: 5rem;
+   /* transform: scale(1.2); */
+   transform: translateY(-0.4rem);
+   transition: transform 0.2s ease-in-out;
+   
+   
+}
+.settingItem input:checked[type="checkbox"]::before {
+   transform: translateY(-0.4rem) translateX(1.4rem);
+}
+
+.settingItem:hover {
+   background-color: #444;
+}
+.settingItem input[type="checkbox"]:hover {
+   border: 5px solid #ddd;
+   background-color: #ddd;
 }
