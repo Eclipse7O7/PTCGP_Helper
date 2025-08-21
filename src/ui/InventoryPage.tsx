@@ -97,7 +97,19 @@ export default function InventoryPage() {
 
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
+
+  const startInvPageContainer = (
+    <div>
+      <h1>Inventory</h1>
+      <p>This is the inventory page.</p>
+      <p>Here you can manage your card collection.</p>
+    </div>
+  );
+  var [inventoryPageContainer, setInventoryPageContainer] = useState<React.ReactNode>(startInvPageContainer);
+
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 
 
   /* Now using react state to manage profile menu open/close instead of direct DOM manipulation
@@ -164,6 +176,14 @@ export default function InventoryPage() {
 
 
 
+  // function to load blank cards into the inventoryPageContainer?
+  // create new variables for the settings and attribute the regular inventoryPageContainer
+  //  to the correct settings on/off
+  // Want to make it so sets can easily be implemented - so also want to make
+  //  it so we can load the sets cards into the correct id / locations 
+  async function x() {
+    
+  }
 
 
   // Not final functionality !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -179,6 +199,30 @@ export default function InventoryPage() {
     // Log the profile to the console
     console.log("Profile fetched successfully:", profile);
     // Display profile information in the UI
+
+
+    // For some reason the key created persistent cards? idk
+    console.log(profile.collection);
+
+    setInventoryPageContainer((
+      <div>
+        <h2>Profile: {profile.name}</h2>
+        {profile.collection.map((collectionCard) => (
+          <img 
+            //key={collectionCard.card.id} 
+            className="cardImage" 
+            src={collectionCard.card.image} 
+            alt={collectionCard.card.name} 
+          />
+        ))}
+        <p>2 This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows.</p>
+        <br />
+      </div>
+    ));
+    
+
+    /*
+    //My atmpt 1 (Works but not JSX)
     var pageContainer = document.querySelector(".inventoryPageContainer");
     if (pageContainer) {
       console.log("\nProfile fetched successfully:", profile, "\n\n");
@@ -198,6 +242,7 @@ export default function InventoryPage() {
       pageContainer.appendChild(tempP);
       pageContainer.appendChild(document.createElement("br"));
     }
+    */
   }
 
 
@@ -235,30 +280,30 @@ export default function InventoryPage() {
 
       <button className="profileButton" onClick={openProfile}><h3>Profile</h3></button>
       <div className={`profileMenuContainer${profileMenuOpen ? " openProfile" : ""}`}>
-          {[...Array(profileIDs)].map((_, i) => (
-            <button key={i} onClick={() => {
-                setCurrentProfile(i)
-                // !!!!!!!!!!!!!!!!!!!!!!!!!
-                // will need to make this also set the inventoryPageContainer to the profile's collection
-                //think currently this is changed in 
-              }}>
-              Profile {i}
-            </button>
-          ))}
+        {[...Array(profileIDs)].map((_, i) => (
+          <button key={i} onClick={() => {
+            setCurrentProfile(i)
+            // !!!!!!!!!!!!!!!!!!!!!!!!!
+            // will need to make this also set the inventoryPageContainer to the profile's collection
+            //think currently this is changed in 
+          }}>
+            Profile {i}
+          </button>
+        ))}
       </div>
       
       <button className="setButton" onClick={openSet}><h3>Set</h3></button>
       <div className={`setMenuContainer${setMenuOpen ? " openSet" : ""}`}>
         {[...Array(setInfoList.length)].map((_, i) => (
-            <button key={i} onClick={() => {
-                console.log("Set button clicked for set:", setInfoList[i].name);
-                // !!!!!!!!!!!!!!!!!!!!!!!!!
-                // will need to make this also set the inventoryPageContainer to the set's cards,
-                //  using the currently selected profile's cards
-              }}>
-              {setInfoList[i].id}
-            </button>
-          ))}
+          <button key={i} onClick={() => {
+            console.log("Set button clicked for set:", setInfoList[i].name);
+            // !!!!!!!!!!!!!!!!!!!!!!!!!
+            // will need to make this also set the inventoryPageContainer to the set's cards,
+            //  using the currently selected profile's cards
+          }}>
+            {setInfoList[i].id}
+          </button>
+        ))}
       </div>
       <button className="viewButton" onClick={openView}><h3>View</h3></button>
       <div className={`viewMenuContainer${viewMenuOpen ? " openView" : ""}`}>
@@ -266,18 +311,21 @@ export default function InventoryPage() {
       </div>
 
       <div className="inventoryPageContainer">
-        <h1>Inventory</h1>
-        <p>This is the inventory page.</p>
-        <p>Here you can manage your card collection.</p>
+        {inventoryPageContainer}
       </div>
-      <button className="temp" onClick={() => changeProfile()}>
-        Fetch Profile Test
-      </button>
-      <button className="temp" onClick={() => {
-        console.log(currentProfile);
-      }}>
-        Log Current Profile
-      </button>
+      
+      {/*
+        <>
+        <button className="temp" onClick={() => changeProfile()}>
+          Fetch Profile Test
+        </button>
+        <button className="temp" onClick={() => {
+          console.log(currentProfile);
+        }}>
+          Log Current Profile
+        </button>
+      </>
+      */}
     </div>
   );
 }
