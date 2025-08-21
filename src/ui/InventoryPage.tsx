@@ -46,12 +46,11 @@ export default function InventoryPage() {
   }
   
 
-  const [currentSet, setSet] = useState<SetData | null>(null);
+  
   const [setInfoList, setSetInfoList] = useState<any[]>([]);
-
   const prependRunRef = useRef(false);
   
-
+  
   useEffect(() => {
     console.log("Fetching sets info...");
     window.appMethods.getSetsInfo().then((sets) => {
@@ -77,10 +76,10 @@ export default function InventoryPage() {
       prependSetInfoList();
       prependRunRef.current = false; // Reset the ref to prevent multiple prepends
     }
-
+    
   }, [setInfoList]); // This useEffect runs whenever setInfoList changes -> but only
   // want it to run the prepending once, so using a ref to track that
-
+  
   async function prependSetInfoList() {
     const newSetInfoList = [...setInfoList];
     newSetInfoList.unshift({ id: "All", name: "All Sets", cardCount: -1 });
@@ -88,36 +87,13 @@ export default function InventoryPage() {
     //console.log(newSetInfoList);
     setSetInfoList(newSetInfoList);
   }
+
+  /* Now using react state (below) to manage profile menu open/close instead of direct DOM manipulation
   
-  
-  
-  
-  
-  
-
-  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
-  const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
-
-  const startInvPageContainer = (
-    <div>
-      <h1>Inventory</h1>
-      <p>This is the inventory page.</p>
-      <p>Here you can manage your card collection.</p>
-    </div>
-  );
-  var [inventoryPageContainer, setInventoryPageContainer] = useState<React.ReactNode>(startInvPageContainer);
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
-  /* Now using react state to manage profile menu open/close instead of direct DOM manipulation
-
   function openProfile() {
     console.log("Profile button clicked");
     toggleProfile();
-
+    
     // for each profile that exists, create a button that will set the current profile to that profile
     const profileMenuContainer = document.querySelector(".profileMenuContainer");
     if (profileMenuContainer) {
@@ -129,16 +105,15 @@ export default function InventoryPage() {
           setCurrentProfile(i);
           //changeProfile();
           
-        });
+          });
         profileMenuContainer.appendChild(button);
-      }
-    }
+        }
+        }
   }
   */
-
-
-  function openProfile() {
-    setProfileMenuOpen((open) => !open);
+ 
+ function openProfile() {
+   setProfileMenuOpen((open) => !open);
   }
 
   function openSet() {
@@ -152,10 +127,8 @@ export default function InventoryPage() {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   }
 
-  
-
   function openSettings() {
-    console.log("Settings icon clicked");
+    //console.log("Settings icon clicked");
     setSettingsMenuOpen((open) => !open);
   }
   function selectCards() {
@@ -173,16 +146,124 @@ export default function InventoryPage() {
     (inventoryOption === InventoryOptions.ADD_CARD) ? setInventoryOption(null) : setInventoryOption(InventoryOptions.ADD_CARD);
     console.log("Add Cards icon clicked");
   }
+  
+  
+  const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
+  const [inventoryOption, setInventoryOption] = useState<InventoryOptions | null>(null);
+  
+  const startInvPageContainer = (
+    <div>
+      <h1>Inventory</h1>
+      <p>This is the inventory page.</p>
+      <p>Here you can manage your card collection.</p>
+    </div>
+  );
+  var [inventoryPageContainer, setInventoryPageContainer] = useState<React.ReactNode>(startInvPageContainer);
+  
+  
+  
+  // Unsure if these variables are needed, but better to have them here for now
+  const [settingShowEmptyCardSlots, setSettingShowEmptyCardSlots] = useState<boolean>(false);
+  const [settingDisplayCollectionInOrder, setSettingDisplayCollectionInOrder] = useState<boolean>(false);
+  
+  function settingShowEmptyCardSlotsComponent() {
+    return (
+      <div className="settingItem">
+        <input 
+          type="checkbox" 
+          id="setting1" 
+          name="setting1" 
+          value="setting1" 
+          checked={settingShowEmptyCardSlots} 
+          onChange={
+            (e) => setSettingShowEmptyCardSlots(e.target.checked)
+            // Don't think function calls can go here, so use the state of the variable.
+          }
+        />
+        <label htmlFor="setting1">Show Empty Card Slots</label>
+      </div>
+    );
+  }
+  function settingDisplayCollectionInOrderComponent() {
+    return (
+      <div className="settingItem">
+        <input 
+          type="checkbox" 
+          id="setting2" 
+          name="setting2" 
+          value="setting2" 
+          checked={settingDisplayCollectionInOrder} 
+          onChange={
+            (e) => setSettingDisplayCollectionInOrder(e.target.checked)
+            // Don't think function calls can go here, so use the state of the variable.
+          } 
+        />
+        <label htmlFor="setting2">Display Collection In Order</label>
+      </div>
+    );
+  }
+  
+  
+  // Check if the settings are on, and if so, update the UI accordingly
+  useEffect(() => {
+    if (settingShowEmptyCardSlots) {
+      // Show empty card slots in the inventory
+    } else {
+      // Hide empty card slots in the inventory
+    }
+  }, [settingShowEmptyCardSlots]);
+  
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  useEffect(() => {
+    if (settingDisplayCollectionInOrder) {
+      // Display collection in order
+    } else {
+      // Display collection in random order
+    }
+  }, [settingDisplayCollectionInOrder]);
+  
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  
 
-
-
+  
+  // null set means to display all sets as none are selected
+  const [currentSet, setSet] = useState<SetData | null>(null);
+  
+  
+  
   // function to load blank cards into the inventoryPageContainer?
   // create new variables for the settings and attribute the regular inventoryPageContainer
   //  to the correct settings on/off
   // Want to make it so sets can easily be implemented - so also want to make
   //  it so we can load the sets cards into the correct id / locations 
-  async function x() {
-    
+  
+  // This func should likely end up being called where "inventoryPageContainer" is
+  async function inventoryPageContainerHandler() {
+    if (settingShowEmptyCardSlots) {
+      // Show empty card slots in the inventory
+      //funcForShowingEmptyCardSlots();
+      //func for then populating the inventory with cards, returns it?
+      //return output of 2nd func?
+      
+    } else {
+      // Don't show empty card slots in the inventory
+      if (settingDisplayCollectionInOrder) {
+        // Display collection in order
+        //func for grabbing the collection
+        //func to sort the collection in order (by card id and set id)
+        //func for then populating the inventory with cards, returns it?
+        //return output of 3rd func?
+
+      } else {
+        // Display collection as pulled from the backend
+        //func for grabbing the collection
+        //func for then populating the inventory with cards, returns it?
+        //return output of 2nd func?
+
+      }
+    }
   }
 
 
@@ -201,14 +282,14 @@ export default function InventoryPage() {
     // Display profile information in the UI
 
 
-    // For some reason the key created persistent cards? idk
     console.log(profile.collection);
-
+    
     setInventoryPageContainer((
       <div>
         <h2>Profile: {profile.name}</h2>
         {profile.collection.map((collectionCard) => (
           <img 
+            // For some reason the key created persistent cards? idk
             //key={collectionCard.card.id} 
             className="cardImage" 
             src={collectionCard.card.image} 
@@ -222,7 +303,7 @@ export default function InventoryPage() {
     
 
     /*
-    //My atmpt 1 (Works but not JSX)
+    //My atmpt 1 (Works but not JSX / React State)
     var pageContainer = document.querySelector(".inventoryPageContainer");
     if (pageContainer) {
       console.log("\nProfile fetched successfully:", profile, "\n\n");
@@ -247,8 +328,8 @@ export default function InventoryPage() {
 
 
   useEffect(() => {
-  console.log("Current profile changed:", currentProfile);
-  changeProfile();
+    console.log("Current profile changed:", currentProfile);
+    changeProfile();
   }, [currentProfile]); // This useEffect only runs when currentProfile changes
 
 
@@ -265,14 +346,9 @@ export default function InventoryPage() {
         {
           // React State based Settings menu content here
           <>
-            <div className="settingItem">
-              <input type="checkbox" id="set1" name="set1" value="set1" />
-              <label htmlFor="set1">Show Empty Card Slots</label>
-            </div>
-            <div className="settingItem">
-              <input type="checkbox" id="set2" name="set2" value="set2" />
-              <label htmlFor="set2">Display Collection In Order</label>
-            </div>
+            {settingShowEmptyCardSlotsComponent()}
+            {(settingShowEmptyCardSlots) ? <>{settingDisplayCollectionInOrderComponent()}</> : null}
+
           </>
         }
       </div>
@@ -285,7 +361,7 @@ export default function InventoryPage() {
             setCurrentProfile(i)
             // !!!!!!!!!!!!!!!!!!!!!!!!!
             // will need to make this also set the inventoryPageContainer to the profile's collection
-            //think currently this is changed in 
+            // (Might now be being handled in inventoryPageContainerHandler())
           }}>
             Profile {i}
           </button>
@@ -297,9 +373,12 @@ export default function InventoryPage() {
         {[...Array(setInfoList.length)].map((_, i) => (
           <button key={i} onClick={() => {
             console.log("Set button clicked for set:", setInfoList[i].name);
+            setSet(setInfoList[i].id);
             // !!!!!!!!!!!!!!!!!!!!!!!!!
             // will need to make this also set the inventoryPageContainer to the set's cards,
             //  using the currently selected profile's cards
+            // (Might now be being handled in inventoryPageContainerHandler())
+
           }}>
             {setInfoList[i].id}
           </button>

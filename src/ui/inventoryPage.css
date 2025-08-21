@@ -183,6 +183,10 @@ div .cardPlaceholder {
    padding-left:5%;
    padding-right:5%;
 }
+.profileMenuContainer button:hover {
+   background-color: #444;
+}
+
 
 
 .setMenuContainer {
@@ -208,6 +212,9 @@ div .cardPlaceholder {
    width:80%;
    padding-left:5%;
    padding-right:5%;
+}
+.setMenuContainer button:hover {
+   background-color: #444;
 }
 
 
@@ -235,6 +242,9 @@ div .cardPlaceholder {
    width:80%;
    padding-left:5%;
    padding-right:5%;
+}
+.viewMenuContainer button:hover {
+   background-color: #444;
 }
 
 
