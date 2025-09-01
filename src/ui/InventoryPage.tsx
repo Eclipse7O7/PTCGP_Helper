@@ -204,7 +204,8 @@ export default function InventoryPage() {
   }
   
   
-  // Check if the settings are on, and if so, update the UI accordingly
+  // Check if the settings are on, and if so, update the UI accordingly - this might be obsolete now
+  //   as the settings are now being used in inventoryPageContainerHandler()
   useEffect(() => {
     if (settingShowEmptyCardSlots) {
       // Show empty card slots in the inventory
@@ -244,46 +245,50 @@ export default function InventoryPage() {
     if (settingShowEmptyCardSlots) {
       // Show empty card slots in the inventory
       //funcForShowingEmptyCardSlots();
-      //func for then populating the inventory with cards, returns it?
-      //return output of 2nd func?
+      //func for then populating the inventory with cards, returns it
       
+      // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
     } else {
       // Don't show empty card slots in the inventory
       if (settingDisplayCollectionInOrder) {
         // Display collection in order
         //func for grabbing the collection
         //func to sort the collection in order (by card id and set id)
-        //func for then populating the inventory with cards, returns it?
-        //return output of 3rd func?
+        //func for then populating the inventory with cards
 
+        // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
       } else {
-        // Display collection as pulled from the backend
-        //func for grabbing the collection
-        //func for then populating the inventory with cards, returns it?
-        //return output of 2nd func?
+        // Display collection as pulled from the backend,
+        //   which is the default changeProfile() implementation
+        changeProfile();
 
+        // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
       }
     }
   }
 
+  // UseEffect to call inventoryPageContainerHandler() when relevant variables change
+  useEffect(() => {
+    console.log("Inventory page container handler called");
+    inventoryPageContainerHandler();
+  }, [settingShowEmptyCardSlots, settingDisplayCollectionInOrder, currentProfile, currentSet]);
 
-  // Not final functionality !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // Also uses DOM manipulation instead of React state, which is not ideal
 
+
+
+
+  
   async function changeProfile() {
     const profile = await getProfileByIdUI(currentProfile);
     if (!profile) {
       console.error("Profile not found");
       return;
     }
-    
     // Log the profile to the console
     console.log("Profile fetched successfully:", profile);
-    // Display profile information in the UI
-
-
     console.log(profile.collection);
     
+    // Display profile's collection in the UI
     setInventoryPageContainer((
       <div>
         <h2>Profile: {profile.name}</h2>
@@ -296,7 +301,7 @@ export default function InventoryPage() {
             alt={collectionCard.card.name} 
           />
         ))}
-        <p>2 This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows.</p>
+        <p>[FalseFalse] This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows.</p>
         <br />
       </div>
     ));
@@ -326,12 +331,12 @@ export default function InventoryPage() {
     */
   }
 
-
+  /*
   useEffect(() => {
     console.log("Current profile changed:", currentProfile);
     changeProfile();
   }, [currentProfile]); // This useEffect only runs when currentProfile changes
-
+  */
 
 
 
@@ -344,11 +349,9 @@ export default function InventoryPage() {
 
       <div className={`settingsContainer${settingsMenuOpen ? " openSettings" : ""}`}>
         {
-          // React State based Settings menu content here
           <>
             {settingShowEmptyCardSlotsComponent()}
-            {(settingShowEmptyCardSlots) ? <>{settingDisplayCollectionInOrderComponent()}</> : null}
-
+            {(settingShowEmptyCardSlots) ? null : <>{settingDisplayCollectionInOrderComponent()}</>}
           </>
         }
       </div>
