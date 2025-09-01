@@ -23,27 +23,27 @@
             },
             {
             "card": {
-               "id": "A1-002",
-               "name": "Ivysaur",
-               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               "id": "A1-005",
+               "name": "Caterpie",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/005/low.png"
+               },
+            "quantity": 12
+            },
+            {
+            "card": {
+               "id": "A1-062",
+               "name": "Tentacool",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/062/low.png"
                },
             "quantity": 2
             },
             {
             "card": {
-               "id": "A1-002",
-               "name": "Ivysaur",
-               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
+               "id": "A1-017",
+               "name": "Venomoth",
+               "image":"https://assets.tcgdex.net/en/tcgp/A1/017/low.png"
                },
-            "quantity": 2
-            },
-            {
-            "card": {
-               "id": "A1-002",
-               "name": "Ivysaur",
-               "image":"https://assets.tcgdex.net/en/tcgp/A1/002/low.png"
-               },
-            "quantity": 2
+            "quantity": 1
             }
          ],
          "settings": {

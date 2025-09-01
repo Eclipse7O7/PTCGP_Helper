@@ -240,14 +240,13 @@ export default function InventoryPage() {
   // Want to make it so sets can easily be implemented - so also want to make
   //  it so we can load the sets cards into the correct id / locations 
   
-  // This func should likely end up being called where "inventoryPageContainer" is
+  // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
   async function inventoryPageContainerHandler() {
     if (settingShowEmptyCardSlots) {
       // Show empty card slots in the inventory
-      //funcForShowingEmptyCardSlots();
+      funcForShowingEmptyCardSlots();
       //func for then populating the inventory with cards, returns it
       
-      // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
     } else {
       // Don't show empty card slots in the inventory
       if (settingDisplayCollectionInOrder) {
@@ -255,14 +254,12 @@ export default function InventoryPage() {
         //func for grabbing the collection
         //func to sort the collection in order (by card id and set id)
         //func for then populating the inventory with cards
-
-        // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
+        funcForOrderingCollection();
+       
       } else {
-        // Display collection as pulled from the backend,
-        //   which is the default changeProfile() implementation
+        // Display collection as pulled from the backend, which is the
+        //  default changeProfile() implementation
         changeProfile();
-
-        // Each of these if blocks will call setInventoryPageContainer() with the appropriate content
       }
     }
   }
@@ -276,7 +273,55 @@ export default function InventoryPage() {
 
 
 
+  async function funcForShowingEmptyCardSlots() {
+    const profile = await getProfileByIdUI(currentProfile);
+    if (!profile) {
+      console.error("Profile not found");
+      return;
+    }
 
+
+    //setInventoryPageContainer( ... );
+  }
+
+
+  async function funcForOrderingCollection() {
+    const profile = await getProfileByIdUI(currentProfile);
+    if (!profile) {
+      console.error("Profile not found");
+      return;
+    }
+    // Sort the collection by set id and then by card id
+    const sortedCollection = [...profile.collection].sort((a, b) => {
+      if (a.card.set === b.card.set) {
+        //console.log(a.card.id.localeCompare(b.card.id))
+        return a.card.id.localeCompare(b.card.id);
+      }
+
+      if (a.card.set !== undefined && b.card.set !== undefined) {
+        return a.card.set.localeCompare(b.card.set);
+      } else {
+        return 0;
+      }
+    });
+    console.log("Sorted collection:", sortedCollection);
+    
+    // Display profile's sorted collection in the UI
+    setInventoryPageContainer((
+      <div>
+        <h2>Profile: {profile.name} (Sorted)</h2>
+        {sortedCollection.map((collectionCard) => (
+          <img 
+            className="cardImage" 
+            src={collectionCard.card.image} 
+            alt={collectionCard.card.name} 
+          />
+        ))}
+        <p>[FalseTrue] This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows. This content is inside a div with an inline style that causes scrolling when content overflows.</p>
+        <br />
+      </div>
+    ));
+  }
   
   async function changeProfile() {
     const profile = await getProfileByIdUI(currentProfile);
